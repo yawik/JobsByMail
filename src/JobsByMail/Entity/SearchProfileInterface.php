@@ -15,13 +15,12 @@ use Core\Entity\ModificationDateAwareEntityInterface;
 use Core\Entity\PermissionsAwareInterface;
 
 /**
- * Interface for a Job Posting
+ * Interface for a Search Profile
  *
- * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @package Jobs\Entity
  */
-interface JobInterface extends
+interface SearchProfileInterface extends
     EntityInterface,
     IdentifiableEntityInterface,
     ModificationDateAwareEntityInterface,
@@ -73,4 +72,19 @@ interface JobInterface extends
      * @return string
      */
     public function getEmail();
+
+    /**
+     * Sets the query of a search profile. Stores the formular data of a search
+     *
+     * @param hash $query
+     * @return $this
+     */
+    public function setQuery($query);
+
+    /**
+     * Gets the email of a search profile. Gets the formular data of a search
+     *
+     * @return hash
+     */
+    public function getQuery();
 }
