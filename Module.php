@@ -3,9 +3,9 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2017 Cross Solution (http://cross-solution.de)
  * @license   MIT
- * @author    weitz@cross-solution.de
+ * @author    @author Carsten Bleek <bleek@cross-solution.de>
  */
 
 namespace JobsByMail;
@@ -14,7 +14,7 @@ use Core\ModuleManager\ModuleConfigLoader;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 
 /**
- * Bootstrap class of the organizations module
+ * Bootstrap module
  */
 class Module implements DependencyIndicatorInterface
 {
