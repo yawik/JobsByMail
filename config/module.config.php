@@ -13,12 +13,20 @@ return [
             ]
         ]
     ],
+    'options' => [
+        'JobsByMail/SubscribeOptions' => [
+            'class' => 'JobsByMail\Options\SubscribeOptions'
+        ]
+    ],
     'form_elements' => [
-        'invokables' => [
-            'JobsByMail\Form\SubscribeForm' => 'JobsByMail\Form\SubscribeForm',
-        ],
+        'factories' => [
+            'JobsByMail\Form\SubscribeForm' => 'JobsByMail\Factory\Form\SubscribeFactory'
+        ]
     ],
     'controllers' => [
+        'factories' => [
+            'JobsByMail/SubscribeController' => 'JobsByMail\Factory\Controller\SubscribeControllerFactory'
+        ],
         'delegators' => [
             'Jobs/Jobboard' => [
                 'JobsByMail\Factory\Controller\JobboardDelegator'
@@ -34,7 +42,34 @@ return [
             ]
         ]
     ],
-    'router' => [],
+    'router' => [
+        'routes' => [
+            'lang' => [
+                'child_routes' => [
+                    'jobsbymail' => [
+                        'type' => 'Literal',
+                        'options' => [
+                            'route' => '/jobsbymail',
+                            'defaults' => [
+                                'controller' => 'JobsByMail/SubscribeController'
+                            ]
+                        ],
+                        'child_routes' => [
+                            'subscribe' => [
+                                'type' => 'Literal',
+                                'options' => [
+                                    'route' => '/subscribe',
+                                    'defaults' => [
+                                        'action' => 'subscribe'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ],
     'view_manager' => [
         'template_map' => [],
         'template_path_stack' => [

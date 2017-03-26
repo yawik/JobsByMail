@@ -11,8 +11,9 @@ namespace JobsByMail\Form;
 use Zend\Form\Form;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
+use Jobs\Form\JobboardSearch;
 
-class SubscribeForm extends Form implements ViewPartialProviderInterface
+class SubscribeForm extends JobboardSearch implements ViewPartialProviderInterface
 {
     
     use ViewPartialProviderTrait;
@@ -22,7 +23,7 @@ class SubscribeForm extends Form implements ViewPartialProviderInterface
      *
      * @var string
      */
-    private $defaultPartial = 'jobs-by-mail/form/subscribe';
+    private $defaultPartial = 'jobs-by-mail/form/subscribe/form';
 
     /**
      * {@inheritDoc}
@@ -30,6 +31,10 @@ class SubscribeForm extends Form implements ViewPartialProviderInterface
      */
     public function init()
     {
+        parent::init();
+        $this->setAttribute('id', 'jobsbymail-subscribe-form')
+            ->setAttribute('method', 'POST');
+        
         $this->add([
             'type' => 'email',
             'name' => 'email',
@@ -37,8 +42,14 @@ class SubscribeForm extends Form implements ViewPartialProviderInterface
                 'label' => /*@translate*/ 'Email'
             ],
             'attributes' => [
-                'required' => true
+                'required' => true,
+                'placeholder' => /*@translate*/ 'Enter your email address'
             ]
+        ]);
+        
+        $this->getInputFilter()->add([
+            'name' => 'l',
+            'required' => false
         ]);
     }
 }

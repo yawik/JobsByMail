@@ -76,15 +76,15 @@ interface SearchProfileInterface extends
     /**
      * Sets the query of a search profile. Stores the form data of a search
      *
-     * @param hash $query
+     * @param array $query
      * @return $this
      */
-    public function setQuery($query);
+    public function setQuery(array $query);
 
     /**
-     * Gets the email of a search profile. Gets the form data of a search
+     * Gets the query of a search profile. Gets the form data of a search
      *
-     * @return hash
+     * @return array
      */
     public function getQuery();
 }
