@@ -9,22 +9,24 @@
 namespace JobsByMail\Factory\Controller;
 
 
-use JobsByMail\Controller\SubscribeController;
+use JobsByMail\Controller\ConsoleController;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class SubscribeControllerFactory implements FactoryInterface
+class ConsoleControllerFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param array $options
-     * @return SubscribeController
+     * @return ConsoleController
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new SubscribeController($container->get(\JobsByMail\Service\Subscriber::class));
+        $repository = $container->get('repositories')->get('JobsByMail/SearchProfile');
+        
+        return new ConsoleController($repository);
     }
 
     /**
@@ -33,6 +35,6 @@ class SubscribeControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), SubscribeController::class);
+        return $this($serviceLocator->getServiceLocator(), ConsoleController::class);
     }
 }

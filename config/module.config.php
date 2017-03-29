@@ -10,7 +10,17 @@ return [
                 'drivers' => [
                     'JobsByMail\Entity' => 'annotation'
                 ]
+            ],
+            'annotation' => [
+                'paths' => [
+                    __DIR__ . '/../src/JobsByMail/Entity'
+                ]
             ]
+        ]
+    ],
+    'service_manager' => [
+        'factories' => [
+            \JobsByMail\Service\Subscriber::class => \JobsByMail\Factory\SubscriberFactory::class
         ]
     ],
     'options' => [
@@ -25,7 +35,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            'JobsByMail/SubscribeController' => 'JobsByMail\Factory\Controller\SubscribeControllerFactory'
+            'JobsByMail/SubscribeController' => 'JobsByMail\Factory\Controller\SubscribeControllerFactory',
+            'JobsByMail/ConsoleController' => 'JobsByMail\Factory\Controller\ConsoleControllerFactory'
         ],
         'delegators' => [
             'Jobs/Jobboard' => [
@@ -64,6 +75,22 @@ return [
                                     ]
                                 ]
                             ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ],
+    'console' => [
+        'router' => [
+            'routes' => [
+                'jobsbymail-send' => [
+                    'options' => [
+                        'route' => 'jobsbymail send [--limit=]',
+                        'defaults' => [
+                            'controller' => 'JobsByMail/ConsoleController',
+                            'action' => 'send',
+                            'limit' => '30'
                         ]
                     ]
                 ]

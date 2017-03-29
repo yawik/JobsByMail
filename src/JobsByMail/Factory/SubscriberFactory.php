@@ -6,25 +6,28 @@
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.29
  */
-namespace JobsByMail\Factory\Controller;
+namespace JobsByMail\Factory;
 
 
-use JobsByMail\Controller\SubscribeController;
+use JobsByMail\Service\Subscriber;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class SubscribeControllerFactory implements FactoryInterface
+class SubscriberFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param array $options
-     * @return SubscribeController
+     * @return Subscriber
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new SubscribeController($container->get(\JobsByMail\Service\Subscriber::class));
+        $repository = $container->get('repositories')->get('JobsByMail/SearchProfile');
+        $paginatorService = $container->get('ControllerPluginManager')->get('paginator');
+        
+        return new \JobsByMail\Service\Subscriber($repository, $paginatorService);
     }
 
     /**
@@ -33,6 +36,6 @@ class SubscribeControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator->getServiceLocator(), SubscribeController::class);
+        return $this($serviceLocator, Subscriber::class);
     }
 }

@@ -55,6 +55,9 @@ class SubscribeController extends AbstractActionController
             
             $this->subscriber->subscribe($email, $data);
             
+            $repositories = $this->serviceLocator->get('repositories');
+            $repositories->flush();
+            
             return new JsonModel([
                 'valid' => true,
                 'content' => $this->serviceLocator->get('ViewRenderer')

@@ -13,9 +13,14 @@ use Core\Entity\ModificationDateAwareEntityTrait;
 use Core\Entity\MetaDataProviderTrait;
 use DateTime;
 use InvalidArgumentException;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
- * @ODM\Document(collection="jobsbymail.search.profile")
+ * @ODM\Document(collection="jobsbymail.search.profile", repositoryClass="\JobsByMail\Repository\SearchProfile")
+ * @ODM\Indexes({
+ *     @ODM\Index(keys={"dateLastSearch.date"="asc"}),
+ *     @ODM\Index(keys={"dateLastMail.date"="asc"})
+ * })
  */
 class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileInterface
 {

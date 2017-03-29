@@ -12,13 +12,14 @@ use Core\Options\FieldsetCustomizationOptions;
 
 class SubscribeOptions extends FieldsetCustomizationOptions
 {
+
     /**
      * Fields can be disabled.
      *
      * @var array
      */
-   protected $fields=[
-       'q' => [
+    protected $fields = [
+        'q' => [
             'enabled' => true
         ],
         'l' => [
@@ -28,4 +29,54 @@ class SubscribeOptions extends FieldsetCustomizationOptions
             'enabled' => true
         ]
     ];
+
+    /**
+     * Delay when to proceed another job search in minutes
+     *
+     * @var integer
+     */
+    protected $searchJobsDelay = 1440;
+
+    /**
+     * Maximum number of jobs sent to single email
+     *
+     * @var integer
+     */
+    protected $maxJobsPerMail = 10;
+
+    /**
+     * @return integer
+     */
+    public function getSearchJobsDelay()
+    {
+        return $this->searchJobsDelay;
+    }
+
+    /**
+     * @param integer $searchJobsDelay
+     * @return JobsByMail\Options$SubscribeOptions
+     */
+    public function setSearchJobsDelay($searchJobsDelay)
+    {
+        $this->searchJobsDelay = $searchJobsDelay;
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getMaxJobsPerMail()
+    {
+        return $this->maxJobsPerMail;
+    }
+
+    /**
+     * @param integer $maxJobsPerMail
+     * @return JobsByMail\Options$SubscribeOptions
+     */
+    public function setMaxJobsPerMail($maxJobsPerMail)
+    {
+        $this->maxJobsPerMail = $maxJobsPerMail;
+        return $this;
+    }
 }
