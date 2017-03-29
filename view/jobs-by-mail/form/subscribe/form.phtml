@@ -54,8 +54,8 @@ $modalId = 'job-by-mail-subscribe-modal';
             
             $('#jobs-list-container').on('yk-paginator-container:loaded', function() {
                 init();
-                $form.form();
-                // re-init other form elements here ...
+                $form.form().find('select').each($.fn.form.initSelect);
+                $form.find('select.geoselect').geoSelect();
             });
         });
     })();
