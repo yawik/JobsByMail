@@ -11,6 +11,8 @@ namespace JobsByMail\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Options\SubscribeOptions;
+use JobsByMail\Service\Subscriber;
+use JobsByMail\Service\Mailer;
 use DateTime;
 
 
@@ -28,36 +30,87 @@ class ConsoleController extends AbstractActionController
     private $subscribeOptions;
     
     /**
-     * @param SearchProfileRepository $searchProfileRepository
-     * @param SubscribeOptions $subscribeOptions
+     * @var Subscriber
      */
-    public function __construct(SearchProfileRepository $searchProfileRepository, SubscribeOptions $subscribeOptions)
+    private $subscriber;
+    
+    /**
+     * @var Mailer
+     */
+    private $mailer;
+    
+    /**
+     * @var callable
+     */
+    protected $progressBarFactory;
+    
+    /**
+     * @param SearchProfileRepository $searchProfileRepository
+     * @param Subscriber $subscriber
+     * @param Mailer $mailer
+     * @param SubscribeOptions $subscribeOptions
+     * @param callable $progressBarFactory
+     */
+    public function __construct(
+        SearchProfileRepository $searchProfileRepository,
+        Subscriber $subscriber,
+        Mailer $mailer,
+        SubscribeOptions $subscribeOptions,
+        callable $progressBarFactory
+    )
     {
         $this->searchProfileRepository = $searchProfileRepository;
+        $this->subscriber = $subscriber;
+        $this->mailer = $mailer;
         $this->subscribeOptions = $subscribeOptions;
+        $this->progressBarFactory = $progressBarFactory;
     }
     
     public function sendAction()
     {
-        return 'not implemented yet ...'.PHP_EOL;
+        $limit = abs($this->params('limit')) ?: 30;
+        
+        // @todo: what lang value should be used?
+        $this->serviceLocator->get('HttpRouter')->setDefaultParam('lang', 'en');
         
         // select all profiles which have not been checked recently
-        $searchProfiles = $this->searchProfileRepository->getProfilesToCheck($this->subscribeOptions->getSearchJobsDelay());
+        $delay = $this->subscribeOptions->getSearchJobsDelay();
+        $searchProfiles = $this->searchProfileRepository->getProfilesToCheck($delay, $limit);
+        $documentManager = $this->searchProfileRepository->getDocumentManager();
+        
+        $i = 1;
+        $count = count($searchProfiles);
+        $progressBarFactory = $this->progressBarFactory;
+        /** @var \Core\Console\ProgressBar $progressBar */
+        $progressBar = $progressBarFactory($count);
         
         // iterate profiles and send them e-mails with jobs if any
         foreach ($searchProfiles as $searchProfile) {
-            $jobs = $this->subscriberService->getRelevantJobs($searchProfile, $this->subscribeOptions->getMaxJobsPerMail());
+            $now = new DateTime();
+            $jobs = $this->subscriber->getRelevantJobs($searchProfile, $this->subscribeOptions->getMaxJobsPerMail());
             
             if ($jobs) {
                 // sent mail
-                // implement sending of mail ...
+                $this->mailer->sendMail($searchProfile, $jobs);
                 
                 // set date of sending a mail
-                $searchProfile->setDateLastMail(new DateTime());
+                $searchProfile->setDateLastMail($now);
             }
             
-            // set date of sending a mail
-            $searchProfile->setDateLastSearch(new DateTime());
+            // set date of the last search
+            $searchProfile->setDateLastSearch($now);
+            
+            if (0 === $i % 100) {
+                $progressBar->update($i, 'Flushing to database ...');
+                $documentManager->flush();
+            }
+            
+            $progressBar->update($i, 'Profile ' . $i . ' / ' . $count);
+            $i++;
         }
+        
+        $progressBar->update($i, 'Flushing to database ...');
+        $documentManager->flush();
+        $progressBar->finish();
     }
 }

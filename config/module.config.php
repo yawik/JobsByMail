@@ -20,7 +20,8 @@ return [
     ],
     'service_manager' => [
         'factories' => [
-            \JobsByMail\Service\Subscriber::class => \JobsByMail\Factory\SubscriberFactory::class
+            \JobsByMail\Service\Subscriber::class => \JobsByMail\Factory\Service\SubscriberFactory::class,
+            \JobsByMail\Service\Mailer::class => \JobsByMail\Factory\Service\MailerFactory::class
         ]
     ],
     'options' => [

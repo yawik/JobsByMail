@@ -1,0 +1,24 @@
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+/** @var \Zend\View\Helper\ServerUrl $serverUrl */
+$serverUrl = $this->plugin('serverUrl');
+$serverUrl->setHost($this->host)
+    ->setScheme($this->scheme);
+?>
+
+<?php foreach ($this->jobs as $job): /** @var \Jobs\Entity\JobInterface $job */ ?>
+    <?php
+        $organization = $job->getOrganization();
+        $hasOrganization = is_object($organization->getOrganizationName());
+    ?>
+    <h2><a href="<?=$this->jobUrl($job, ['linkOnly' => true, 'absolute' => true]) ?>"><?=$job->getTitle()?></a></h2>
+    <?php if ($hasOrganization && $organization->getImage()): ?>
+        <div><img src="<?=$this->serverUrl($this->organizationImageCache->getUri($organization->getImage()))?>" height="80"></div>
+    <?php endif ?>
+    <?php if ($hasOrganization && $organization->getOrganizationName()->getName()): ?>
+        <?=$organization->getOrganizationName()->getName()?>
+    <?php endif ?>
+    <p><?=$job->getLocation()?></p>
+<?php endforeach;?>
+
+<?=$this->partial('mail/footer')?>

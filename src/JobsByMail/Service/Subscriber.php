@@ -10,6 +10,7 @@ namespace JobsByMail\Service;
 
 use JobsByMail\Entity\SearchProfileInterface;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
+use Jobs\Entity\Location;
 use DateTime;
 
 class Subscriber
@@ -26,13 +27,20 @@ class Subscriber
     private $paginatorFactory;
     
     /**
+     * @var Location
+     */
+    private $locationPrototype;
+    
+    /**
      * @param SearchProfileRepository $searchProfileRepository
      * @param callable $paginatorFactory
+     * @param Location $locationPrototype
      */
-    public function __construct(SearchProfileRepository $searchProfileRepository, callable $paginatorFactory)
+    public function __construct(SearchProfileRepository $searchProfileRepository, callable $paginatorFactory, Location $locationPrototype)
     {
         $this->searchProfileRepository = $searchProfileRepository;
         $this->paginatorFactory = $paginatorFactory;
+        $this->locationPrototype = $locationPrototype;
     }
     
     /**
@@ -71,9 +79,21 @@ class Subscriber
         $params = $searchProfile->getQuery();
         $params['publishedSince'] = $searchProfile->getDateLastMail();
         
+        if (isset($params['l']) && $params['l']) {
+            $params['l'] = $this->getLocationEntity()->fromString($params['l']);
+        }
+        
         /** @var \Zend\Paginator\Paginator $paginator */
         $paginator = call_user_func($this->paginatorFactory, 'Jobs/Board', [], $params);
 
         return $paginator->getAdapter()->getItems(0, $limit);
+    }
+    
+    /**
+     * @return Location
+     */
+    protected function getLocationEntity()
+    {
+        return clone $this->locationPrototype;
     }
 }

@@ -6,28 +6,29 @@
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.29
  */
-namespace JobsByMail\Factory;
+namespace JobsByMail\Factory\Service;
 
 
-use JobsByMail\Service\Subscriber;
+use JobsByMail\Service\Mailer;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class SubscriberFactory implements FactoryInterface
+class MailerFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param array $options
-     * @return Subscriber
+     * @return Mailer
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $repository = $container->get('repositories')->get('JobsByMail/SearchProfile');
-        $paginatorService = $container->get('ControllerPluginManager')->get('paginator');
+        $mailService = $container->get('Core/MailService');
+        $moduleOptions = $container->get('Core/Options');
+        $organizationImageCache = $container->get('Organizations\ImageFileCache\Manager');
         
-        return new \JobsByMail\Service\Subscriber($repository, $paginatorService);
+        return new \JobsByMail\Service\Mailer($mailService, $moduleOptions, $organizationImageCache);
     }
 
     /**
@@ -36,6 +37,6 @@ class SubscriberFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, Subscriber::class);
+        return $this($serviceLocator, Mailer::class);
     }
 }
