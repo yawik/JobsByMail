@@ -38,11 +38,6 @@ return [
         'factories' => [
             'JobsByMail/SubscribeController' => 'JobsByMail\Factory\Controller\SubscribeControllerFactory',
             'JobsByMail/ConsoleController' => 'JobsByMail\Factory\Controller\ConsoleControllerFactory'
-        ],
-        'delegators' => [
-            'Jobs/Jobboard' => [
-                'JobsByMail\Factory\Controller\JobboardDelegator'
-            ]
         ]
     ],
     'translator' => [
@@ -102,6 +97,11 @@ return [
         'template_map' => [],
         'template_path_stack' => [
             __DIR__ . '/../view'
+        ]
+    ],
+    'view_helpers' => [
+        'factories' => [
+            'jobsByMailSubscriptionForm' => \JobsByMail\Factory\View\Helper\SubscriptionFormFactory::class
         ]
     ]
 ];
