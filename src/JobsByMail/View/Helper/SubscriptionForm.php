@@ -14,6 +14,10 @@ use Zend\View\Helper\AbstractHelper;
 use JobsByMail\Form\SubscribeForm;
 use Core\Controller\Plugin\PaginationParams;
 use Auth\AuthenticationService;
+use Zend\Paginator\Paginator;
+use Solr\FacetsProviderInterface;
+use Zend\Form\Fieldset;
+use Core\Form\View\Helper\Form as FormHelper;
 
 /**
  * Renders subscription form
@@ -53,11 +57,12 @@ class SubscriptionForm extends AbstractHelper
     }
 
     /**
-     *
+     * @param Paginator $jobs
      * @return string
      */
-    public function render()
+    public function render(Paginator $jobs)
     {
+        $facets = null;
         $data = $this->paginationParams->__invoke('Jobs_Board', [
             'q',
             'l',
@@ -70,6 +75,23 @@ class SubscriptionForm extends AbstractHelper
         
         $this->form->setData($data);
         
-        return $this->getView()->form($this->form);
+        if ($jobs instanceof FacetsProviderInterface) {
+            $facets = $jobs->getFacets();
+            
+            foreach ($facets->getActiveValues() as $name => $values) {
+                $fieldset = new Fieldset($name);
+                
+                foreach ($values as $value) {
+                    $fieldset->add([
+                        'type' => 'hidden',
+                        'name' => $value
+                    ]);
+                }
+                
+                $this->form->add($fieldset);
+            }
+        }
+        
+        return $this->getView()->form($this->form, FormHelper::LAYOUT_HORIZONTAL, ['facets' => $facets]);
     }
 }

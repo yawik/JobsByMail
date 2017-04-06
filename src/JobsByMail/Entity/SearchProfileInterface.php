@@ -12,6 +12,7 @@ use Core\Entity\MetaDataProviderInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
+use Core\Entity\DraftableEntityInterface;
 
 /**
  * Interface for a Search Profile
@@ -24,7 +25,8 @@ interface SearchProfileInterface extends
     EntityInterface,
     IdentifiableEntityInterface,
     ModificationDateAwareEntityInterface,
-    MetaDataProviderInterface
+    MetaDataProviderInterface,
+    DraftableEntityInterface
 {
 
     /**
@@ -87,4 +89,19 @@ interface SearchProfileInterface extends
      * @return array
      */
     public function getQuery();
+    
+    /**
+     * Gets language as ISO 639-1
+     *
+     * @return string
+     */
+    public function getLanguage();
+
+    /**
+     * sets language as ISO 639-1
+     *
+     * @param string $language
+     * @return $this
+     */
+    public function setLanguage($language);
 }

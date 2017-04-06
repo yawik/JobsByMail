@@ -46,14 +46,15 @@ class Subscriber
     /**
      * @param string $email
      * @param array $query
+     * @param string $language
      * @return SearchProfileInterface
      */
-    public function subscribe($email, array $query)
+    public function subscribe($email, array $query, $language)
     {
         /** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
         $searchProfile = $this->searchProfileRepository->findOneByEmail($email);
         
-        if (! $searchProfile) {
+        if (!$searchProfile) {
             // create a new search profile
             $searchProfile = $this->searchProfileRepository->create([
                 'email' => $email
@@ -64,7 +65,8 @@ class Subscriber
         $now = new DateTime();
         $searchProfile->setDateLastMail($now)
             ->setDateLastSearch($now)
-            ->setQuery($query);
+            ->setQuery($query)
+            ->setLanguage($language);
         
         return $searchProfile;
     }

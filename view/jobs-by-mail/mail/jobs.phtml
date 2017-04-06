@@ -4,14 +4,18 @@
 $serverUrl = $this->plugin('serverUrl');
 $serverUrl->setHost($this->host)
     ->setScheme($this->scheme);
+/** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
+$searchProfile = $this->searchProfile;
+$lang = $searchProfile->getLanguage();
 ?>
 
 <?php foreach ($this->jobs as $job): /** @var \Jobs\Entity\JobInterface $job */ ?>
     <?php
+        $jobUrl = $this->jobUrl($job, ['linkOnly' => true, 'absolute' => true], ['lang' => $lang]);
         $organization = $job->getOrganization();
         $hasOrganization = is_object($organization->getOrganizationName());
     ?>
-    <h2><a href="<?=$this->jobUrl($job, ['linkOnly' => true, 'absolute' => true]) ?>"><?=$job->getTitle()?></a></h2>
+    <h2><a href="<?=$jobUrl?>"><?=$job->getTitle()?></a></h2>
     <?php if ($hasOrganization && $organization->getImage()): ?>
         <div><img src="<?=$this->serverUrl($this->organizationImageCache->getUri($organization->getImage()))?>" height="80"></div>
     <?php endif ?>

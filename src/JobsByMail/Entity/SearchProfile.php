@@ -11,6 +11,7 @@ namespace JobsByMail\Entity;
 use Core\Entity\AbstractIdentifiableEntity;
 use Core\Entity\ModificationDateAwareEntityTrait;
 use Core\Entity\MetaDataProviderTrait;
+use Core\Entity\DraftableEntityTrait;
 use DateTime;
 use InvalidArgumentException;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
@@ -26,7 +27,8 @@ class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileI
 {
     
     use ModificationDateAwareEntityTrait,
-        MetaDataProviderTrait;
+        MetaDataProviderTrait,
+        DraftableEntityTrait;
 
     /**
      * @var string
@@ -52,6 +54,14 @@ class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileI
      * @ODM\Field(type="tz_date")
      */
     protected $dateLastMail;
+    
+    /**
+     * Language as ISO 639-1
+     *
+     * @var string
+     * @ODM\Field(type="string")
+     */
+    protected $language;
         
     /**
      * {@inheritDoc}
@@ -139,5 +149,24 @@ class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileI
     public function getQuery()
     {
         return $this->query;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \JobsByMail\Entity\SearchProfileInterface::getLanguage()
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \JobsByMail\Entity\SearchProfileInterface::setLanguage()
+     */
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+        return $this;
     }
 }

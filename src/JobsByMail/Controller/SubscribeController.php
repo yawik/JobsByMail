@@ -43,17 +43,18 @@ class SubscribeController extends AbstractActionController
                 ->setStatusCode(Response::STATUS_CODE_404);
         }
         
+        $data = $request->getPost()->toArray();
+        
         /** @var SubscribeForm $form */
         $form = $this->serviceLocator->get('FormElementManager')
             ->get(SubscribeForm::class)
-            ->setData($request->getPost()->toArray());
+            ->setData($data);
         
         if ($form->isValid()) {
-            $data = $form->getData();
             $email = $data['email'];
             unset($data['email']);
             
-            $this->subscriber->subscribe($email, $data);
+            $this->subscriber->subscribe($email, $data, $this->params('lang'));
             
             $repositories = $this->serviceLocator->get('repositories');
             $repositories->flush();

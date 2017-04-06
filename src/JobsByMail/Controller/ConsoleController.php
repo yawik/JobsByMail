@@ -70,9 +70,6 @@ class ConsoleController extends AbstractActionController
     {
         $limit = abs($this->params('limit')) ?: 30;
         
-        // @todo: what lang value should be used?
-        $this->serviceLocator->get('HttpRouter')->setDefaultParam('lang', 'en');
-        
         // select all profiles which have not been checked recently
         $delay = $this->subscribeOptions->getSearchJobsDelay();
         $searchProfiles = $this->searchProfileRepository->getProfilesToCheck($delay, $limit);

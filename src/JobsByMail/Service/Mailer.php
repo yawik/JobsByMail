@@ -57,7 +57,7 @@ class Mailer
             ->setSubject('New jobs for you on %s', $this->moduleOptions->getSiteName())
             ->setTo($searchProfile->getEmail())
             ->setTemplate('jobs-by-mail/mail/jobs')
-            ->setVariable('profile', $searchProfile)
+            ->setVariable('searchProfile', $searchProfile)
             ->setVariable('jobs', $jobs)
             ->setVariable('host', $url['host'])
             ->setVariable('scheme', $url['scheme'])
