@@ -13,6 +13,8 @@ use JobsByMail\Controller\SubscribeController;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use JobsByMail\Service\Subscriber;
+use JobsByMail\Service\Mailer;
 
 class SubscribeControllerFactory implements FactoryInterface
 {
@@ -24,7 +26,13 @@ class SubscribeControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new SubscribeController($container->get(\JobsByMail\Service\Subscriber::class));
+        $searchProfileRepository = $container->get('repositories')->get('JobsByMail/SearchProfile');
+        $subscriber = $container->get(Subscriber::class);
+        $mailer = $container->get(Mailer::class);
+        $formElementManager = $container->get('FormElementManager');
+        $viewRenderer = $container->get('ViewRenderer');
+        
+        return new SubscribeController($searchProfileRepository, $subscriber, $mailer, $formElementManager, $viewRenderer);
     }
 
     /**

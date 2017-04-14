@@ -38,6 +38,13 @@ class SubscribeOptions extends FieldsetCustomizationOptions
     protected $searchJobsDelay = 1440;
 
     /**
+     * Expiration of an inactive profile in minutes
+     *
+     * @var integer
+     */
+    protected $inactiveProfileExpiration = 720;
+
+    /**
      * Maximum number of jobs sent to single email
      *
      * @var integer
@@ -62,6 +69,24 @@ class SubscribeOptions extends FieldsetCustomizationOptions
         return $this;
     }
 
+    /**
+     * @return integer
+     */
+    public function getInactiveProfileExpiration()
+    {
+        return $this->inactiveProfileExpiration;
+    }
+
+    /**
+     * @param integer $inactiveProfileExpiration
+     * @return JobsByMail\Options$SubscribeOptions
+     */
+    public function setInactiveProfileExpiration($inactiveProfileExpiration)
+    {
+        $this->inactiveProfileExpiration = $inactiveProfileExpiration;
+        return $this;
+    }
+ 
     /**
      * @return integer
      */

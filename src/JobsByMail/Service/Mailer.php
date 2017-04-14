@@ -12,6 +12,11 @@ use JobsByMail\Entity\SearchProfileInterface;
 use Core\Mail\MailService;
 use Core\Options\ModuleOptions;
 use Organizations\ImageFileCache\Manager as OrganizationImageCache;
+use LogicException;
+use Zend\Mail\Exception\ExceptionInterface as MailException;
+use Zend\Log\LoggerInterface as Log;
+use Zend\Mail\Message;
+use JobsByMail\Service\Hash;
 
 class Mailer
 {
@@ -20,6 +25,11 @@ class Mailer
      * @var MailService
      */
     private $mailService;
+    
+    /**
+     * @var Hash
+     */
+    private $hash;
     
     /**
      * @var ModuleOptions
@@ -32,23 +42,38 @@ class Mailer
     protected $organizationImageCache;
     
     /**
+     * @var Log
+     */
+    protected $log;
+    
+    /**
      * @param MailService $mailService
+     * @param Hash $hash
      * @param ModuleOptions $moduleOptions
      * @param OrganizationImageCache $organizationImageCache
+     * @param Log $log
      */
-    public function __construct(MailService $mailService, ModuleOptions $moduleOptions, OrganizationImageCache $organizationImageCache)
+    public function __construct(
+        MailService $mailService,
+        Hash $hash,
+        ModuleOptions $moduleOptions,
+        OrganizationImageCache $organizationImageCache,
+        Log $log)
     {
         $this->mailService = $mailService;
+        $this->hash = $hash;
         $this->moduleOptions = $moduleOptions;
         $this->organizationImageCache = $organizationImageCache;
+        $this->log = $log;
     }
 
     /**
      *
      * @param SearchProfileInterface $searchProfile
      * @param array $jobs
+     * @return boolean
      */
-    public function sendMail(SearchProfileInterface $searchProfile, array $jobs)
+    public function sendJobs(SearchProfileInterface $searchProfile, array $jobs)
     {
         $url = parse_url($this->moduleOptions->getOperator()['homepage']);
         
@@ -61,8 +86,46 @@ class Mailer
             ->setVariable('jobs', $jobs)
             ->setVariable('host', $url['host'])
             ->setVariable('scheme', $url['scheme'])
+            ->setVariable('hash', $this->hash)
             ->setVariable('organizationImageCache', $this->organizationImageCache);
         
-        $this->mailService->send($message);
+        return $this->sendMessage($message);
+    }
+
+    /**
+     * @param SearchProfileInterface $searchProfile
+     * @throws LogicException
+     * @return boolean
+     */
+    public function sendConfirmation(SearchProfileInterface $searchProfile)
+    {
+        if (!$searchProfile->isDraft()) {
+            throw new LogicException('search profile is not a draft');
+        }
+        
+        /** @var \Core\Mail\HTMLTemplateMessage $message */
+        $message = $this->mailService->get('htmltemplate')
+            ->setSubject('Confirm your search profile on %s', $this->moduleOptions->getSiteName())
+            ->setTo($searchProfile->getEmail())
+            ->setTemplate('jobs-by-mail/mail/confirmation')
+            ->setVariable('searchProfile', $searchProfile)
+            ->setVariable('hash', $this->hash);
+        
+        return $this->sendMessage($message);
+    }
+    
+    /**
+     * @param Message $message
+     * @return boolean
+     */
+    private function sendMessage(Message $message)
+    {
+        try {
+            $this->mailService->send($message);
+            return true;
+        } catch (MailException $e) {
+            $this->log->err((string) $e);
+            return false;
+        }
     }
 }

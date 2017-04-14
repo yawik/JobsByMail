@@ -6,7 +6,10 @@ $serverUrl->setHost($this->host)
     ->setScheme($this->scheme);
 /** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
 $searchProfile = $this->searchProfile;
+/** @var \JobsByMail\Service\Hash $hash */
+$hash = $this->hash;
 $lang = $searchProfile->getLanguage();
+$unsubscribeUrl = $this->serverUrl($this->url('lang/jobsbymail/unsubscribe', ['lang' => $lang, 'id' => $searchProfile->getId(), 'hash' => $hash->generate($searchProfile)]));
 ?>
 
 <?php foreach ($this->jobs as $job): /** @var \Jobs\Entity\JobInterface $job */ ?>
@@ -24,5 +27,9 @@ $lang = $searchProfile->getLanguage();
     <?php endif ?>
     <p><?=$job->getLocation()?></p>
 <?php endforeach;?>
+
+<p>
+    <a href="<?=$unsubscribeUrl?>"><?=$this->translate('Unsubscribe this search profile')?></a>
+</p>
 
 <?=$this->partial('mail/footer')?>

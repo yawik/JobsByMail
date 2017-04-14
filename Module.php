@@ -58,7 +58,8 @@ class Module implements DependencyIndicatorInterface, ConsoleUsageProviderInterf
     {
         return [
             'Send jobs by mail emails',
-            'jobsbymail send [--limit]'  => 'Send jobs by mail emails',
+            'jobsbymail send [--limit]'  => 'Sends emails with relevant jobs to search profiles',
+            'jobsbymail cleanup'  => 'Purges stale inactive search profiles',
             ['--limit=INT', 'Number of search profile to check per run. Default 30. 0 means no limit']
         ];
     }

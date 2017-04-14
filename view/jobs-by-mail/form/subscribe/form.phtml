@@ -40,11 +40,9 @@ $modalId = 'job-by-mail-subscribe-modal';
                                     <label><?=$this->translate($facets->getTitle($facetName))?></label>
                                 </div>
                                 <div class="col-md-9">
-                                    <big>
-                                        <?php foreach ($facetValues as $facetValue):?>
-                                            <span class="label label-info"><?=$facetValue?></span>
-                                        <?php endforeach;?>
-                                    </big>
+                                    <?php foreach ($facetValues as $facetValue):?>
+                                        <span class="label label-info"><?=$facetValue?></span>
+                                    <?php endforeach;?>
                                 </div>
                             </div>
                         <?php endforeach;?>

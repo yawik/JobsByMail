@@ -1,4 +1,7 @@
 <?php
+use JobsByMail\Service;
+use JobsByMail\Factory\Service as ServiceFactory;
+use JobsByMail\Factory\Controller as ControllerFactory;
 
 /**
  * create a config/autoload/JobsByMail.local.php and put modifications there.
@@ -19,25 +22,31 @@ return [
         ]
     ],
     'service_manager' => [
+        'invokables' => [
+            Service\Hash::class => Service\Hash::class
+        ],
         'factories' => [
-            \JobsByMail\Service\Subscriber::class => \JobsByMail\Factory\Service\SubscriberFactory::class,
-            \JobsByMail\Service\Mailer::class => \JobsByMail\Factory\Service\MailerFactory::class
+            Service\Subscriber::class => ServiceFactory\SubscriberFactory::class,
+            Service\Mailer::class => ServiceFactory\MailerFactory::class,
+            Service\JobSeeker::class => ServiceFactory\JobSeekerFactory::class
         ]
     ],
     'options' => [
         'JobsByMail/SubscribeOptions' => [
-            'class' => 'JobsByMail\Options\SubscribeOptions'
+            'class' => \JobsByMail\Options\SubscribeOptions::class
         ]
     ],
     'form_elements' => [
         'factories' => [
-            'JobsByMail\Form\SubscribeForm' => 'JobsByMail\Factory\Form\SubscribeFactory'
+            'JobsByMail\Form\SubscribeForm' => \JobsByMail\Factory\Form\SubscribeFactory::class
         ]
     ],
     'controllers' => [
         'factories' => [
-            'JobsByMail/SubscribeController' => 'JobsByMail\Factory\Controller\SubscribeControllerFactory',
-            'JobsByMail/ConsoleController' => 'JobsByMail\Factory\Controller\ConsoleControllerFactory'
+            'JobsByMail/SubscribeController' => ControllerFactory\SubscribeControllerFactory::class,
+            'JobsByMail/UnsubscribeController' => ControllerFactory\UnsubscribeControllerFactory::class,
+            'JobsByMail/ConfirmController' => ControllerFactory\ConfirmControllerFactory::class,
+            'JobsByMail/ConsoleController' => ControllerFactory\ConsoleControllerFactory::class
         ]
     ],
     'translator' => [
@@ -58,7 +67,7 @@ return [
                         'options' => [
                             'route' => '/jobsbymail',
                             'defaults' => [
-                                'controller' => 'JobsByMail/SubscribeController'
+                                'action' => 'index'
                             ]
                         ],
                         'child_routes' => [
@@ -67,7 +76,33 @@ return [
                                 'options' => [
                                     'route' => '/subscribe',
                                     'defaults' => [
-                                        'action' => 'subscribe'
+                                        'controller' => 'JobsByMail/SubscribeController',
+                                    ]
+                                ]
+                            ],
+                            'unsubscribe' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/unsubscribe/:id/:hash',
+                                    'defaults' => [
+                                        'controller' => 'JobsByMail/UnsubscribeController'
+                                    ],
+                                    'constraints' => [
+                                        'id' => '[a-z0-9]{24}',
+                                        'hash' => '[a-z0-9]{32}'
+                                    ]
+                                ]
+                            ],
+                            'confirm' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/confirm/:id/:hash',
+                                    'defaults' => [
+                                        'controller' => 'JobsByMail/ConfirmController'
+                                    ],
+                                    'constraints' => [
+                                        'id' => '[a-z0-9]{24}',
+                                        'hash' => '[a-z0-9]{32}'
                                     ]
                                 ]
                             ]
@@ -87,6 +122,15 @@ return [
                             'controller' => 'JobsByMail/ConsoleController',
                             'action' => 'send',
                             'limit' => '30'
+                        ]
+                    ]
+                ],
+                'jobsbymail-cleanup' => [
+                    'options' => [
+                        'route' => 'jobsbymail cleanup',
+                        'defaults' => [
+                            'controller' => 'JobsByMail/ConsoleController',
+                            'action' => 'cleanup'
                         ]
                     ]
                 ]

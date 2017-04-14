@@ -1,0 +1,13 @@
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+/** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
+$searchProfile = $this->searchProfile;
+/** @var \JobsByMail\Service\Hash $hash */
+$hash = $this->hash;
+?>
+
+<p>
+    <a href="<?=$this->serverUrl($this->url('lang/jobsbymail/confirm', ['id' => $searchProfile->getId(), 'hash' => $hash->generate($searchProfile)]))?>"><?=$this->translate('Confirm your search profile.')?></a>
+</p>
+
+<?=$this->partial('mail/footer')?>

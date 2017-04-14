@@ -26,14 +26,14 @@ class ConsoleControllerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $searchProfileRepository = $container->get('repositories')->get('JobsByMail/SearchProfile');
-        $subscriber = $container->get(\JobsByMail\Service\Subscriber::class);
+        $jobSeeker = $container->get(\JobsByMail\Service\JobSeeker::class);
         $mailer = $container->get(\JobsByMail\Service\Mailer::class);
         $options = $container->get('JobsByMail/SubscribeOptions');
         $progressBarFactory = function ($count, $persistenceNamespace = null) {
             return new ProgressBar($count, $persistenceNamespace);
         };
         
-        return new ConsoleController($searchProfileRepository, $subscriber, $mailer, $options, $progressBarFactory);
+        return new ConsoleController($searchProfileRepository, $jobSeeker, $mailer, $options, $progressBarFactory);
     }
 
     /**

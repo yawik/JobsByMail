@@ -6,32 +6,32 @@
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.29
  */
-namespace JobsByMail\Factory\Service;
+namespace JobsByMail\Factory\Controller;
 
 
-use JobsByMail\Service\Mailer;
-use JobsByMail\Service\Hash;
+use JobsByMail\Controller\ConfirmController;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use JobsByMail\Service\Hash;
+use JobsByMail\Service\Subscriber;
 
-class MailerFactory implements FactoryInterface
+class ConfirmControllerFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param array $options
-     * @return Mailer
+     * @return ConfirmController
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $mailService = $container->get('Core/MailService');
+        $searchProfileRepository = $container->get('repositories')->get('JobsByMail/SearchProfile');
+        $subscriber = $container->get(Subscriber::class);
         $hash = $container->get(Hash::class);
-        $moduleOptions = $container->get('Core/Options');
-        $organizationImageCache = $container->get('Organizations\ImageFileCache\Manager');
-        $log = $container->get('ErrorLogger');
+        $translator = $container->get('Translator');
         
-        return new Mailer($mailService, $hash, $moduleOptions, $organizationImageCache, $log);
+        return new ConfirmController($searchProfileRepository, $subscriber, $hash, $translator);
     }
 
     /**
@@ -40,6 +40,6 @@ class MailerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return $this($serviceLocator, Mailer::class);
+        return $this($serviceLocator->getServiceLocator(), ConfirmController::class);
     }
 }

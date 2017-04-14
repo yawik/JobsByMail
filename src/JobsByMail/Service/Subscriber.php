@@ -51,24 +51,31 @@ class Subscriber
      */
     public function subscribe($email, array $query, $language)
     {
-        /** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
-        $searchProfile = $this->searchProfileRepository->findOneByEmail($email);
-        
-        if (!$searchProfile) {
-            // create a new search profile
-            $searchProfile = $this->searchProfileRepository->create([
-                'email' => $email
-            ], true);
-        }
-
-        // update a profile
         $now = new DateTime();
-        $searchProfile->setDateLastMail($now)
+        $searchProfile = $this->searchProfileRepository->create(null, true)
+            ->setEmail($email)
+            ->setDateLastMail($now)
             ->setDateLastSearch($now)
             ->setQuery($query)
             ->setLanguage($language);
         
         return $searchProfile;
+    }
+    
+    /**
+     * @param SearchProfileInterface $searchProfile
+     */
+    public function unsubscribe(SearchProfileInterface $searchProfile)
+    {
+        $this->searchProfileRepository->remove($searchProfile);
+    }
+    
+    /**
+     * @param SearchProfileInterface $searchProfile
+     */
+    public function confirm(SearchProfileInterface $searchProfile)
+    {
+        $searchProfile->setIsDraft(false);
     }
     
     /**

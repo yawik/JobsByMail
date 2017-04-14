@@ -12,9 +12,12 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Http\PhpEnvironment\Response;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Interop\Container\ContainerInterface;
+use Zend\View\Renderer\RendererInterface;
 use JobsByMail\Form\SubscribeForm;
+use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Service\Subscriber;
-
+use JobsByMail\Service\Mailer;
 
 class SubscribeController extends AbstractActionController
 {
@@ -25,14 +28,47 @@ class SubscribeController extends AbstractActionController
     private $subscriber;
     
     /**
-     * @param Subscriber $subscriber
+     * @var SearchProfileRepository
      */
-    public function __construct(Subscriber $subscriber)
+    private $searchProfileRepository;
+    
+    /**
+     * @var Mailer
+     */
+    private $mailer;
+    
+    /**
+     * @var ContainerInterface
+     */
+    private $formElementManager;
+    
+    /**
+     * @var RendererInterface
+     */
+    private $viewRenderer;
+    
+    /**
+     * @param SearchProfileRepository $searchProfileRepository
+     * @param Subscriber $subscriber
+     * @param Mailer $mailer
+     * @param ContainerInterface $formElementManager
+     * @param RendererInterface $viewRenderer
+     */
+    public function __construct(
+        SearchProfileRepository $searchProfileRepository,
+        Subscriber $subscriber,
+        Mailer $mailer,
+        ContainerInterface $formElementManager,
+        RendererInterface $viewRenderer)
     {
+        $this->searchProfileRepository = $searchProfileRepository;
         $this->subscriber = $subscriber;
+        $this->mailer = $mailer;
+        $this->formElementManager = $formElementManager;
+        $this->viewRenderer = $viewRenderer;
     }
     
-    public function subscribeAction()
+    public function indexAction()
     {
         /** @var \Zend\Http\Request $request */
         $request = $this->getRequest();
@@ -46,25 +82,25 @@ class SubscribeController extends AbstractActionController
         $data = $request->getPost()->toArray();
         
         /** @var SubscribeForm $form */
-        $form = $this->serviceLocator->get('FormElementManager')
-            ->get(SubscribeForm::class)
+        $form = $this->formElementManager->get(SubscribeForm::class)
             ->setData($data);
         
         if ($form->isValid()) {
             $email = $data['email'];
             unset($data['email']);
             
-            $this->subscriber->subscribe($email, $data, $this->params('lang'));
+            $searchProfile = $this->subscriber->subscribe($email, $data, $this->params('lang'));
+            $this->searchProfileRepository->getDocumentManager()->flush();
             
-            $repositories = $this->serviceLocator->get('repositories');
-            $repositories->flush();
+            $sent = $this->mailer->sendConfirmation($searchProfile);
             
             return new JsonModel([
                 'valid' => true,
-                'content' => $this->serviceLocator->get('ViewRenderer')
-                    ->render((new ViewModel())
-                        ->setTemplate('jobs-by-mail/form/subscribe/success')
-                        ->setTerminal(true))
+                'content' => $this->viewRenderer->render((new ViewModel())
+                    ->setVariable('sent', $sent)
+                    ->setVariable('searchProfile', $searchProfile)
+                    ->setTemplate('jobs-by-mail/form/subscribe/result')
+                    ->setTerminal(true))
             ]);
         }
         

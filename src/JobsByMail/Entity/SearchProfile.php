@@ -20,7 +20,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  * @ODM\Document(collection="jobsbymail.search.profile", repositoryClass="\JobsByMail\Repository\SearchProfile")
  * @ODM\Indexes({
  *     @ODM\Index(keys={"dateLastSearch.date"="asc"}),
- *     @ODM\Index(keys={"dateLastMail.date"="asc"})
+ *     @ODM\Index(keys={"dateLastMail.date"="asc"}),
+ *     @ODM\Index(keys={"isDraft"="asc"})
  * })
  */
 class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileInterface
@@ -33,7 +34,6 @@ class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileI
     /**
      * @var string
      * @ODM\Field(type="string")
-     * @ODM\Index(unique=true)
      */
     protected $email;
     
