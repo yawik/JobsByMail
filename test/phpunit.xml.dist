@@ -11,7 +11,7 @@
         </whitelist>
     </filter>
     <testsuites>
-        <testsuite name="SolrTest">
+        <testsuite name="JobsByMailTest">
             <directory>./JobsByMailTest</directory>
         </testsuite>
     </testsuites>

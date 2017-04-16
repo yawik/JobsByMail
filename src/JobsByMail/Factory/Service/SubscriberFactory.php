@@ -13,7 +13,6 @@ use JobsByMail\Service\Subscriber;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Jobs\Entity\Location;
 
 class SubscriberFactory implements FactoryInterface
 {
@@ -26,9 +25,8 @@ class SubscriberFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $repository = $container->get('repositories')->get('JobsByMail/SearchProfile');
-        $paginatorService = $container->get('ControllerPluginManager')->get('paginator');
         
-        return new \JobsByMail\Service\Subscriber($repository, $paginatorService, new Location());
+        return new Subscriber($repository);
     }
 
     /**

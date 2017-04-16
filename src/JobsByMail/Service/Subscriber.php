@@ -10,7 +10,6 @@ namespace JobsByMail\Service;
 
 use JobsByMail\Entity\SearchProfileInterface;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
-use Jobs\Entity\Location;
 use DateTime;
 
 class Subscriber
@@ -22,36 +21,23 @@ class Subscriber
     private $searchProfileRepository;
     
     /**
-     * @var callable
-     */
-    private $paginatorFactory;
-    
-    /**
-     * @var Location
-     */
-    private $locationPrototype;
-    
-    /**
      * @param SearchProfileRepository $searchProfileRepository
-     * @param callable $paginatorFactory
-     * @param Location $locationPrototype
      */
-    public function __construct(SearchProfileRepository $searchProfileRepository, callable $paginatorFactory, Location $locationPrototype)
+    public function __construct(SearchProfileRepository $searchProfileRepository)
     {
         $this->searchProfileRepository = $searchProfileRepository;
-        $this->paginatorFactory = $paginatorFactory;
-        $this->locationPrototype = $locationPrototype;
     }
     
     /**
      * @param string $email
      * @param array $query
      * @param string $language
+     * @param DateTime $now
      * @return SearchProfileInterface
      */
-    public function subscribe($email, array $query, $language)
+    public function subscribe($email, array $query, $language, DateTime $now = null)
     {
-        $now = new DateTime();
+        $now = $now ?: new DateTime();
         $searchProfile = $this->searchProfileRepository->create(null, true)
             ->setEmail($email)
             ->setDateLastMail($now)
@@ -76,33 +62,5 @@ class Subscriber
     public function confirm(SearchProfileInterface $searchProfile)
     {
         $searchProfile->setIsDraft(false);
-    }
-    
-    /**
-     * @param SearchProfileInterface $searchProfile
-     * @param int $limit
-     * @return array
-     */
-    public function getRelevantJobs(SearchProfileInterface $searchProfile, $limit)
-    {
-        $params = $searchProfile->getQuery();
-        $params['publishedSince'] = $searchProfile->getDateLastMail();
-        
-        if (isset($params['l']) && $params['l']) {
-            $params['l'] = $this->getLocationEntity()->fromString($params['l']);
-        }
-        
-        /** @var \Zend\Paginator\Paginator $paginator */
-        $paginator = call_user_func($this->paginatorFactory, 'Jobs/Board', [], $params);
-
-        return $paginator->getAdapter()->getItems(0, $limit);
-    }
-    
-    /**
-     * @return Location
-     */
-    protected function getLocationEntity()
-    {
-        return clone $this->locationPrototype;
     }
 }

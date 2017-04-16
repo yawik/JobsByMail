@@ -69,7 +69,8 @@ class ConsoleController extends AbstractActionController
     public function sendAction()
     {
         $limit = abs($this->params('limit')) ?: 30;
-        $delay = $this->subscribeOptions->getSearchJobsDelay();
+        $delay = new DateTime();
+        $delay->modify(sprintf('-%d minute', $this->subscribeOptions->getSearchJobsDelay()));
         
         // select all profiles which have not been checked recently
         $searchProfiles = $this->searchProfileRepository->getProfilesToSend($delay, $limit);
@@ -118,8 +119,19 @@ class ConsoleController extends AbstractActionController
     
     public function cleanupAction()
     {
-        $totalRemoved = $this->searchProfileRepository->removeInactiveProfiles($this->subscribeOptions->getInactiveProfileExpiration());
+        $expiration = new DateTime();
+        $expiration->modify(sprintf('-%d minute', $this->subscribeOptions->getInactiveProfileExpiration()));
+        
+        $totalRemoved = $this->searchProfileRepository->removeInactiveProfiles($expiration);
         
         return sprintf('Total search profiles removed: %d.' . PHP_EOL, $totalRemoved);
+    }
+
+    /**
+     * @return callable
+     */
+    public function getProgressBarFactory()
+    {
+        return $this->progressBarFactory;
     }
 }

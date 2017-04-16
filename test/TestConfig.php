@@ -3,7 +3,9 @@ return array(
     'modules' => array(
         'Core',
         'Auth',
+        'Geo',
         'Jobs',
+        'JobsByMail',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

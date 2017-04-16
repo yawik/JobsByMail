@@ -13,6 +13,7 @@ use Core\Entity\ModificationDateAwareEntityTrait;
 use Core\Entity\MetaDataProviderTrait;
 use Core\Entity\DraftableEntityTrait;
 use DateTime;
+use Exception;
 use InvalidArgumentException;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
@@ -78,13 +79,7 @@ class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileI
      */
     public function setDateLastSearch($dateLastSearch)
     {
-        if (is_string($dateLastSearch)) {
-            $dateLastSearch = new DateTime($dateLastSearch);
-        } elseif (! $dateLastSearch instanceof DateTime) {
-            throw new InvalidArgumentException(sprintf('Expected object of type "%s"', DateTime::class));
-        }
-        
-        $this->dateLastSearch= $dateLastSearch;
+        $this->dateLastSearch = $this->parseDate($dateLastSearch);
         return $this;
     }
 
@@ -103,13 +98,7 @@ class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileI
      */
     public function setDateLastMail($dateLastMail)
     {
-        if (is_string($dateLastMail)) {
-            $dateLastMail = new DateTime($dateLastMail);
-        } elseif (! $dateLastMail instanceof DateTime) {
-            throw new InvalidArgumentException(sprintf('Expected object of type "%s"', DateTime::class));
-        }
-        
-        $this->dateLastMail= $dateLastMail;
+        $this->dateLastMail = $this->parseDate($dateLastMail);
         return $this;
     }
 
@@ -168,5 +157,25 @@ class SearchProfile extends AbstractIdentifiableEntity implements SearchProfileI
     {
         $this->language = $language;
         return $this;
+    }
+
+    /**
+     * @param DateTime|string $date
+     * @throws InvalidArgumentException
+     * @return \DateTime
+     */
+    private function parseDate($date)
+    {
+        if (is_string($date)) {
+            try {
+                $date = new DateTime($date);
+            } catch (Exception $e) {
+                throw new InvalidArgumentException(sprintf('Cannot parse date "%s"', $date), null, $e);
+            }
+        } elseif (!$date instanceof DateTime) {
+            throw new InvalidArgumentException(sprintf('Expected object of type "%s"', DateTime::class));
+        }
+        
+        return $date;
     }
 }

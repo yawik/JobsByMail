@@ -15,18 +15,15 @@ class SearchProfile extends AbstractRepository
 {
 
     /**
-     * @param int $delayInMinutes
+     * @param DateTime $searchDelay
      * @param int $limit
      * @return \Doctrine\ODM\MongoDB\Cursor
      */
-    public function getProfilesToSend($delayInMinutes, $limit = null)
+    public function getProfilesToSend(DateTime $searchDelay, $limit = null)
     {
-        $date = new DateTime();
-        $date->modify(sprintf('-%d minute', $delayInMinutes));
-        
         $qb = $this->createQueryBuilder()
             ->field('isDraft')->equals(false)
-            ->field('dateLastSearch.date')->lt($date)
+            ->field('dateLastSearch.date')->lt($searchDelay)
             ->sort(['dateLastSearch.date' => 1]);
         
         if (isset($limit)) {
@@ -37,19 +34,15 @@ class SearchProfile extends AbstractRepository
     }
     
     /**
-     * @param int $delayInMinutes
-     * @param int $limit
+     * @param DateTime $expiration
      * @return int Number of removed search profiles
      */
-    public function removeInactiveProfiles($expirationInMinutes)
+    public function removeInactiveProfiles(DateTime $expiration)
     {
-        $date = new DateTime();
-        $date->modify(sprintf('-%d minute', $expirationInMinutes));
-        
         $qb = $this->createQueryBuilder()
             ->remove()
             ->field('isDraft')->equals(true)
-            ->field('dateLastSearch.date')->lt($date);
+            ->field('dateLastSearch.date')->lt($expiration);
         
         return $qb->getQuery()->execute()['n'];
     }
