@@ -2,7 +2,7 @@
 /**
  * YAWIK
  *
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2017 Cross Solution (http://cross-solution.de)
  * @license   MIT
  */
 
@@ -12,11 +12,12 @@ use Core\Entity\MetaDataProviderInterface;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
 use Core\Entity\ModificationDateAwareEntityInterface;
-use Core\Entity\PermissionsAwareInterface;
+use Core\Entity\DraftableEntityInterface;
 
 /**
  * Interface for a Search Profile
  *
+ * @author Carsten Bleek <bleek@cross-solution.de>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @package Jobs\Entity
  */
@@ -24,7 +25,8 @@ interface SearchProfileInterface extends
     EntityInterface,
     IdentifiableEntityInterface,
     ModificationDateAwareEntityInterface,
-    MetaDataProviderInterface
+    MetaDataProviderInterface,
+    DraftableEntityInterface
 {
 
     /**
@@ -35,7 +37,7 @@ interface SearchProfileInterface extends
     public function getDateLastSearch();
 
     /**
-     * Sets the date of the last seach
+     * Sets the date of the last search
      *
      * @param $dateLastSearch
      * @return $this
@@ -74,17 +76,32 @@ interface SearchProfileInterface extends
     public function getEmail();
 
     /**
-     * Sets the query of a search profile. Stores the formular data of a search
+     * Sets the query of a search profile. Stores the form data of a search
      *
-     * @param hash $query
+     * @param array $query
      * @return $this
      */
-    public function setQuery($query);
+    public function setQuery(array $query);
 
     /**
-     * Gets the email of a search profile. Gets the formular data of a search
+     * Gets the query of a search profile. Gets the form data of a search
      *
-     * @return hash
+     * @return array
      */
     public function getQuery();
+    
+    /**
+     * Gets language as ISO 639-1
+     *
+     * @return string
+     */
+    public function getLanguage();
+
+    /**
+     * sets language as ISO 639-1
+     *
+     * @param string $language
+     * @return $this
+     */
+    public function setLanguage($language);
 }

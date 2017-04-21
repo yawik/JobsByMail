@@ -3,20 +3,22 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2017 Cross Solution (http://cross-solution.de)
  * @license   MIT
- * @author    weitz@cross-solution.de
+ * @author    @author Carsten Bleek <bleek@cross-solution.de>
  */
 
 namespace JobsByMail;
 
 use Core\ModuleManager\ModuleConfigLoader;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
+use Zend\Console\Adapter\AdapterInterface as Console;
+use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
 /**
- * Bootstrap class of the organizations module
+ * Bootstrap module
  */
-class Module implements DependencyIndicatorInterface
+class Module implements DependencyIndicatorInterface, ConsoleUsageProviderInterface
 {
 
     /**
@@ -47,8 +49,27 @@ class Module implements DependencyIndicatorInterface
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     * @see DependencyIndicatorInterface::getModuleDependencies()
+     */
     public function getModuleDependencies()
     {
         return ['Jobs'];
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see ConsoleUsageProviderInterface::getConsoleUsage()
+     */
+    public function getConsoleUsage(Console $console)
+    {
+        return [
+            'Send jobs by mail emails',
+            'jobsbymail send [--limit] [--server-url]'  => 'Sends emails with relevant jobs to search profiles',
+            'jobsbymail cleanup'  => 'Purges stale inactive search profiles',
+            ['--limit=INT', 'Number of search profile to check per run. Default 30. 0 means no limit'],
+            ['--server-url=STRING', 'Server url including scheme. E.g.: https://domain.tld']
+        ];
     }
 }

@@ -1,0 +1,84 @@
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+/** @var \Zend\Form\Form $form */
+$form = $this->element;
+/** @var \Solr\Facets $facets */
+$facets = $this->facets;
+$modalId = 'job-by-mail-subscribe-modal';
+?>
+<p>
+    <button class="btn btn-info" data-title="<?=$this->translate('Jobs By Mail')?>" data-toggle="modal" data-target="#<?=$modalId?>" title="<?=$this->translate('Jobs By Mail')?>">
+        <i class="yk-icon yk-icon-envelope"></i>
+        <?php echo $this->translate("Jobs By Mail");?>
+    </button>
+</p>
+<div id="<?=$modalId?>" class="modal fade" role="dialog" aria-labelledby="job-by-mail-subscribe-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="job-by-mail-subscribe-label"><?=$this->translate('Get the right Job via e-mail')?></h3>
+            </div>
+            <?=$this->form()->openTag($form)?>
+                <div class="modal-body">
+                    <?php foreach (['q', 'l', 'd'] as $optionalElementName):?>
+                        <?php if ($form->has($optionalElementName)):?>
+                            <?=$this->formRow($form->get($optionalElementName))?>
+                        <?php endif;?>
+                    <?php endforeach;?>
+                    <?=$this->formRow($form->get('email'))?>
+                    <?php foreach ($form->getFieldsets() as $fieldset):?>
+                        <?php foreach ($fieldset as $element):?>
+                            <?=$this->formElement($element)?>
+                        <?php endforeach;?>
+                    <?php endforeach;?>
+                    <?php if ($facets):?>
+                        <?php $activeFacets = $facets->getActiveValues();?>
+                        <?php foreach ($activeFacets as $facetName => $facetValues):?>
+                            <div class="controls controls-row row">
+                                <div class="col-md-3 yk-label">
+                                    <label><?=$this->translate($facets->getTitle($facetName))?></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <?php foreach ($facetValues as $facetValue):?>
+                                        <span class="label label-info"><?=$facetValue?></span>
+                                    <?php endforeach;?>
+                                </div>
+                            </div>
+                        <?php endforeach;?>
+                    <?php endif;?>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal" aria-hidden="true"><?=$this->translate('Close') ?></button>
+                    <button class="btn btn-primary" type="submit"><?=$this->translate('Subscribe') ?></button>
+                </div>
+            <?=$this->form()->closeTag()?>
+        </div>
+    </div>
+</div>
+<?php $this->headScript()->captureStart()?>
+    (function(){
+        var $form,
+            $modal,
+            init = function () {
+                $form = $('#<?=$form->getAttribute('id')?>');
+                $modal = $('#<?=$modalId?>');
+                $form.on('yk:forms:success', function(event, data) {
+                    if ('valid' in data.data && data.data.valid) {
+                        $modal.find('.modal-body').html(data.data.content);
+                        $modal.find('.modal-footer .btn-primary').remove();
+                    }
+                });
+            };
+        
+        $(function () {
+            init();
+            
+            $('#jobs-list-container').on('yk-paginator-container:loaded', function() {
+                init();
+                $form.form().find('select').each($.fn.form.initSelect);
+                $form.find('select.geoselect').geoSelect();
+            });
+        });
+    })();
+<?php $this->headScript()->captureEnd() ?>

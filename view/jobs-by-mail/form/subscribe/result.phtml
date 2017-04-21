@@ -1,0 +1,17 @@
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+/** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
+$searchProfile = $this->searchProfile;
+?>
+<?php if ($this->sent):?>
+    <div class="alert alert-success">
+        <?=$this->translate('Your search profile has been created.')?>
+    </div>
+    <div class="alert alert-info">
+        <?=sprintf($this->translate('Confirm you subscription by clicking a link we have just sent you to your email %s'), $searchProfile->getEmail())?>
+    </div>
+<?php else:?>
+    <div class="alert alert-danger">
+        <?=$this->translate('We are sorry. An error occurred during sending you a confirmation email.')?>
+    </div>
+<?php endif;?>

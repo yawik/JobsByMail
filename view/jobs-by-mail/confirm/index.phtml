@@ -1,0 +1,8 @@
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+/** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
+$searchProfile = $this->searchProfile;
+?>
+<div class="alert alert-success">
+    <?=sprintf($this->translate('Your search profile with email address %s is confirmed now.'), $searchProfile->getEmail())?>
+</div>

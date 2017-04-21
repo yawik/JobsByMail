@@ -1,0 +1,35 @@
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+/** @var \Zend\View\Helper\ServerUrl $serverUrl */
+$serverUrl = $this->plugin('serverUrl');
+$serverUrl->setHost($this->host)
+    ->setScheme($this->scheme);
+/** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
+$searchProfile = $this->searchProfile;
+/** @var \JobsByMail\Service\Hash $hash */
+$hash = $this->hash;
+$lang = $searchProfile->getLanguage();
+$unsubscribeUrl = $this->serverUrl($this->url('lang/jobsbymail/unsubscribe', ['lang' => $lang, 'id' => $searchProfile->getId(), 'hash' => $hash->generate($searchProfile)]));
+?>
+
+<?php foreach ($this->jobs as $job): /** @var \Jobs\Entity\JobInterface $job */ ?>
+    <?php
+        $jobUrl = $this->jobUrl($job, ['linkOnly' => true, 'absolute' => true], ['lang' => $lang]);
+        $organization = $job->getOrganization();
+        $hasOrganization = $organization && is_object($organization->getOrganizationName());
+    ?>
+    <h2><a href="<?=$jobUrl?>"><?=$job->getTitle()?></a></h2>
+    <?php if ($hasOrganization && $organization->getImage()): ?>
+        <div><img src="<?=$this->serverUrl($this->organizationImageCache->getUri($organization->getImage()))?>" height="80"></div>
+    <?php endif ?>
+    <?php if ($hasOrganization && $organization->getOrganizationName()->getName()): ?>
+        <?=$organization->getOrganizationName()->getName()?>
+    <?php endif ?>
+    <p><?=$job->getLocation()?></p>
+<?php endforeach;?>
+
+<p>
+    <a href="<?=$unsubscribeUrl?>"><?=$this->translate('Unsubscribe this search profile')?></a>
+</p>
+
+<?=$this->partial('mail/footer')?>

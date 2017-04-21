@@ -1,0 +1,15 @@
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+/** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
+$searchProfile = $this->searchProfile;
+?>
+
+<?php if ($searchProfile):?>
+    <div class="alert alert-success">
+        <?=sprintf($this->translate('Search profile with the email address %s has been unsubscribed.'), $searchProfile->getEmail())?>
+    </div>
+<?php else:?>
+    <div class="alert alert-info">
+        <?=$this->translate('Search profile does not exist or is already unsubscribed')?>
+    </div>
+<?php endif;?>

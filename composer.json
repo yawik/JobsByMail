@@ -1,0 +1,18 @@
+{
+    "type": "yawik-module",
+    "name": "yawik/jobs-by-mail",
+    "description": "This module enables subscription to latest jobs by email",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        }
+    ],
+    "keywords": [
+        "yawik"
+    ],
+    "require": {
+        "composer/installers": "*"
+    }
+}
