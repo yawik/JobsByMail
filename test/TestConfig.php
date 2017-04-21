@@ -1,21 +1,27 @@
 <?php
-return array(
-    'modules' => array(
-        'Core',
-        'Auth',
-        'Geo',
-        'Jobs',
-        'JobsByMail',
-        'Solr',
-    ),
-    'module_listener_options' => array(
-        'module_paths' => array(
-            './module',
-            './vendor',
-        ),
+$modules = [
+    'Core',
+    'Auth',
+    'Geo',
+    'Jobs',
+    'JobsByMail'
+];
 
-        'config_glob_paths' => array(
-            'config/autoload/{,*.}{global,local}.php',
-        ),
-    )
-);
+// check if Solr is installed
+if (is_dir(__DIR__ . '/../../Solr')) {
+    $modules[] = 'Solr';
+}
+
+return [
+    'modules' => $modules,
+    'module_listener_options' => [
+        'module_paths' => [
+            './module',
+            './vendor'
+        ],
+        
+        'config_glob_paths' => [
+            'config/autoload/{,*.}{global,local}.php'
+        ]
+    ]
+];
