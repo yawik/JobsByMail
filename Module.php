@@ -49,18 +49,27 @@ class Module implements DependencyIndicatorInterface, ConsoleUsageProviderInterf
         ];
     }
 
+    /**
+     * {@inheritDoc}
+     * @see DependencyIndicatorInterface::getModuleDependencies()
+     */
     public function getModuleDependencies()
     {
         return ['Jobs'];
     }
     
+    /**
+     * {@inheritDoc}
+     * @see ConsoleUsageProviderInterface::getConsoleUsage()
+     */
     public function getConsoleUsage(Console $console)
     {
         return [
             'Send jobs by mail emails',
-            'jobsbymail send [--limit]'  => 'Sends emails with relevant jobs to search profiles',
+            'jobsbymail send [--limit] [--server-url]'  => 'Sends emails with relevant jobs to search profiles',
             'jobsbymail cleanup'  => 'Purges stale inactive search profiles',
-            ['--limit=INT', 'Number of search profile to check per run. Default 30. 0 means no limit']
+            ['--limit=INT', 'Number of search profile to check per run. Default 30. 0 means no limit'],
+            ['--server-url=STRING', 'Server url including scheme. E.g.: https://domain.tld']
         ];
     }
 }

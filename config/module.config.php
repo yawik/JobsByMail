@@ -117,7 +117,7 @@ return [
             'routes' => [
                 'jobsbymail-send' => [
                     'options' => [
-                        'route' => 'jobsbymail send [--limit=]',
+                        'route' => 'jobsbymail send [--limit=] [--server-url=]',
                         'defaults' => [
                             'controller' => 'JobsByMail/ConsoleController',
                             'action' => 'send',

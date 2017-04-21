@@ -71,11 +71,12 @@ class Mailer
      *
      * @param SearchProfileInterface $searchProfile
      * @param array $jobs
+     * @param string $serverUrl
      * @return boolean
      */
-    public function sendJobs(SearchProfileInterface $searchProfile, array $jobs)
+    public function sendJobs(SearchProfileInterface $searchProfile, array $jobs, $serverUrl = null)
     {
-        $url = parse_url($this->moduleOptions->getOperator()['homepage']);
+        $serverUrl = parse_url($serverUrl ?: $this->moduleOptions->getOperator()['homepage']);
         
         /** @var \Core\Mail\HTMLTemplateMessage $message */
         $message = $this->mailService->get('htmltemplate')
@@ -84,8 +85,8 @@ class Mailer
             ->setTemplate('jobs-by-mail/mail/jobs')
             ->setVariable('searchProfile', $searchProfile)
             ->setVariable('jobs', $jobs)
-            ->setVariable('host', $url['host'])
-            ->setVariable('scheme', $url['scheme'])
+            ->setVariable('host', $serverUrl['host'])
+            ->setVariable('scheme', $serverUrl['scheme'])
             ->setVariable('hash', $this->hash)
             ->setVariable('organizationImageCache', $this->organizationImageCache);
         

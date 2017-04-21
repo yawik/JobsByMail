@@ -16,7 +16,7 @@ $unsubscribeUrl = $this->serverUrl($this->url('lang/jobsbymail/unsubscribe', ['l
     <?php
         $jobUrl = $this->jobUrl($job, ['linkOnly' => true, 'absolute' => true], ['lang' => $lang]);
         $organization = $job->getOrganization();
-        $hasOrganization = is_object($organization->getOrganizationName());
+        $hasOrganization = $organization && is_object($organization->getOrganizationName());
     ?>
     <h2><a href="<?=$jobUrl?>"><?=$job->getTitle()?></a></h2>
     <?php if ($hasOrganization && $organization->getImage()): ?>

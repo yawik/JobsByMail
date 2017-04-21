@@ -74,8 +74,6 @@ class ConsoleController extends AbstractActionController
         
         // select all profiles which have not been checked recently
         $searchProfiles = $this->searchProfileRepository->getProfilesToSend($delay, $limit);
-        
-        $i = 1;
         $count = count($searchProfiles);
         
         if (0 === $count) {
@@ -86,6 +84,8 @@ class ConsoleController extends AbstractActionController
         /** @var \Core\Console\ProgressBar $progressBar */
         $progressBar = $progressBarFactory($count);
         $documentManager = $this->searchProfileRepository->getDocumentManager();
+        $serverUrl = $this->params('server-url');
+        $i = 1;
         
         // iterate profiles and send them e-mails with jobs if any
         foreach ($searchProfiles as $searchProfile) {
@@ -94,7 +94,7 @@ class ConsoleController extends AbstractActionController
             
             if ($jobs) {
                 // sent mail
-                $this->mailer->sendJobs($searchProfile, $jobs);
+                $this->mailer->sendJobs($searchProfile, $jobs, $serverUrl);
                 
                 // set date of sending a mail
                 $searchProfile->setDateLastMail($now);
