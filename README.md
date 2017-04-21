@@ -1,5 +1,5 @@
-JobsByMail (Work in Progress)
-=============================
+JobsByMail
+==========
 
 This module lets users subscribe to latest job postings by Email
 
@@ -29,6 +29,33 @@ Or by using composer
 ```
 composer require yawik/jobs-by-mail
 ```
+
+Configuration
+-------------
+
+the bin/console tool offers
+
+```
+--------------------------------------------------------------------------------------------------------
+JobsByMail
+--------------------------------------------------------------------------------------------------------
+
+Send jobs by mail emails
+  console jobsbymail send [--limit] [--server-url]    Sends emails with relevant jobs to search profiles                                                 
+  console jobsbymail cleanup                          Purges stale inactive search profiles                                                              
+
+  --limit=INT            Number of search profile to check per run. Default 30. 0 means no limit                                                                               
+  --server-url=STRING    Server url including scheme. E.g.: https://domain.tld    
+```
+
+So create a cronjob for sending Mails and for cleanup subscriptions, which where not confirmed.
+
+Example:
+
+'''
+5  *    * * *   root    /var/www/YAWIK/bin/console jobsbymail send --limit=100 --server-url=https://domain.tld
+10 1    * * *   root    /var/www/YAWIK/bin/console jobsbymail send cleanup
+'''
 
 Documentation
 -------------
