@@ -6,6 +6,7 @@ return array(
         'Geo',
         'Jobs',
         'JobsByMail',
+        'Solr',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
