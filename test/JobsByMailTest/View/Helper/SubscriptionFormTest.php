@@ -171,7 +171,7 @@ class SubscriptionFormTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderWithFacetsProvider()
     {
-        if (!interface_exists(PaginatorFacetsProvider::class)) {
+        if (!class_exists(PaginatorFacetsProvider::class)) {
             $this->markTestSkipped('Solr module is not available');
         }
         
