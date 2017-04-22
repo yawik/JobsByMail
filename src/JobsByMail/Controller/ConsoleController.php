@@ -85,12 +85,13 @@ class ConsoleController extends AbstractActionController
         $progressBar = $progressBarFactory($count);
         $documentManager = $this->searchProfileRepository->getDocumentManager();
         $serverUrl = $this->params('server-url');
+        $maxJobsPerMail = $this->subscribeOptions->getMaxJobsPerMail();
         $i = 1;
         
         // iterate profiles and send them e-mails with jobs if any
         foreach ($searchProfiles as $searchProfile) {
             $now = new DateTime();
-            $jobs = $this->jobSeeker->getProfileJobs($searchProfile, $this->subscribeOptions->getMaxJobsPerMail());
+            $jobs = $this->jobSeeker->getProfileJobs($searchProfile, $maxJobsPerMail);
             
             if ($jobs) {
                 // sent mail
