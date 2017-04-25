@@ -4,6 +4,12 @@
 $serverUrl = $this->plugin('serverUrl');
 $serverUrl->setHost($this->host)
     ->setScheme($this->scheme);
+/** @var \Zend\View\Helper\BasePath $basePath */
+$basePath = $this->plugin('basePath');
+$basePath->setBasePath($this->basePath);
+/** @var \Zend\Mvc\Router\Http\TreeRouteStack $router */
+$router = $this->services('HttpRouter');
+$router->setBaseUrl($this->basePath);
 /** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */
 $searchProfile = $this->searchProfile;
 /** @var \JobsByMail\Service\Hash $hash */
@@ -20,7 +26,7 @@ $unsubscribeUrl = $this->serverUrl($this->url('lang/jobsbymail/unsubscribe', ['l
     ?>
     <h2><a href="<?=$jobUrl?>"><?=$job->getTitle()?></a></h2>
     <?php if ($hasOrganization && $organization->getImage()): ?>
-        <div><img src="<?=$this->serverUrl($this->organizationImageCache->getUri($organization->getImage()))?>" height="80"></div>
+        <div><img src="<?=$this->serverUrl($this->basePath($this->organizationImageCache->getUri($organization->getImage())))?>" height="80"></div>
     <?php endif ?>
     <?php if ($hasOrganization && $organization->getOrganizationName()->getName()): ?>
         <?=$organization->getOrganizationName()->getName()?>

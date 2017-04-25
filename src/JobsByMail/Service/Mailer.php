@@ -17,6 +17,7 @@ use Zend\Mail\Exception\ExceptionInterface as MailException;
 use Zend\Log\LoggerInterface as Log;
 use Zend\Mail\Message;
 use JobsByMail\Service\Hash;
+use InvalidArgumentException;
 
 class Mailer
 {
@@ -78,6 +79,10 @@ class Mailer
     {
         $serverUrl = parse_url($serverUrl ?: $this->moduleOptions->getOperator()['homepage']);
         
+        if (!isset($serverUrl['scheme'])) {
+            throw new InvalidArgumentException('ServerUrl is invalid');
+        }
+        
         /** @var \Core\Mail\HTMLTemplateMessage $message */
         $message = $this->mailService->get('htmltemplate')
             ->setSubject('New jobs for you on %s', $this->moduleOptions->getSiteName())
@@ -87,6 +92,7 @@ class Mailer
             ->setVariable('jobs', $jobs)
             ->setVariable('host', $serverUrl['host'])
             ->setVariable('scheme', $serverUrl['scheme'])
+            ->setVariable('basePath', isset($serverUrl['path']) ? $serverUrl['path'] : null)
             ->setVariable('hash', $this->hash)
             ->setVariable('organizationImageCache', $this->organizationImageCache);
         
