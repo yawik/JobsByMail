@@ -33,7 +33,7 @@ composer require yawik/jobs-by-mail
 Configuration
 -------------
 
-the bin/console tool offers
+Enable the module by creating an the bin/console tool offers
 
 ```
 --------------------------------------------------------------------------------------------------------
@@ -48,14 +48,14 @@ Send jobs by mail emails
   --server-url=STRING    Server url including scheme. E.g.: https://domain.tld    
 ```
 
-So create a cronjob for sending Mails and for cleanup subscriptions, which where not confirmed.
+So create a cronjob for sending mails and for cleanup unconfirmed subscriptions.
 
 Example:
 
-'''
+```
 5  *    * * *   root    /var/www/YAWIK/bin/console jobsbymail send --limit=100 --server-url=https://domain.tld
 10 1    * * *   root    /var/www/YAWIK/bin/console jobsbymail send cleanup
-'''
+```
 
 Documentation
 -------------
