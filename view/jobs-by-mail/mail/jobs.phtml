@@ -15,7 +15,17 @@ $searchProfile = $this->searchProfile;
 /** @var \JobsByMail\Service\Hash $hash */
 $hash = $this->hash;
 $lang = $searchProfile->getLanguage();
-$unsubscribeUrl = $this->serverUrl($this->url('lang/jobsbymail/unsubscribe', ['lang' => $lang, 'id' => $searchProfile->getId(), 'hash' => $hash->generate($searchProfile)]));
+$unsubscribeUrl = $this->serverUrl(
+    $this->basePath(
+        $this->url('lang/jobsbymail/unsubscribe',
+                   [
+                       'lang' => $lang,
+                       'id' => $searchProfile->getId(),
+                       'hash' => $hash->generate($searchProfile)
+                   ]
+        )
+    )
+);
 ?>
 
 <?php foreach ($this->jobs as $job): /** @var \Jobs\Entity\JobInterface $job */ ?>
@@ -26,7 +36,7 @@ $unsubscribeUrl = $this->serverUrl($this->url('lang/jobsbymail/unsubscribe', ['l
     ?>
     <h2><a href="<?=$jobUrl?>"><?=$job->getTitle()?></a></h2>
     <?php if ($hasOrganization && $organization->getImage()): ?>
-        <div><img src="<?=$this->serverUrl($this->basePath($this->organizationImageCache->getUri($organization->getImage())))?>" height="80"></div>
+        <div><img src="<?=$this->serverUrl($this->basePath($this->organizationImageCache->getUri($organization->getImage(true))))?>" height="80"></div>
     <?php endif ?>
     <?php if ($hasOrganization && $organization->getOrganizationName()->getName()): ?>
         <?=$organization->getOrganizationName()->getName()?>
