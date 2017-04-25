@@ -69,7 +69,7 @@ class Module implements DependencyIndicatorInterface, ConsoleUsageProviderInterf
             'jobsbymail send [--limit] [--server-url]'  => 'Sends emails with relevant jobs to search profiles',
             'jobsbymail cleanup'  => 'Purges stale inactive search profiles',
             ['--limit=INT', 'Number of search profile to check per run. Default 30. 0 means no limit'],
-            ['--server-url=STRING', 'Server url including scheme. E.g.: https://domain.tld']
+            ['--server-url=STRING', 'Server url including scheme and base path. Examples: http://domain.tld, https://domain.tld/base-path']
         ];
     }
 }
