@@ -86,35 +86,38 @@ $homepageUrl=$this->serverUrl($this->basePath('/'));
                     <tr>
                         <td style="border-collapse:collapse!important;color:#0a0a0a ;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:normal">
                             <br>
-                            <!--
-
-                            @todo: maybe we can add things like "new jobs since", "new companies since" .....
 
                             <center style="background-color:#2F70AC;color:#FFFFFF;font-size:22px;font-weight:400;">Seit deinem letzten Besuch</center>
 
-                            <table style="table-layout:fixed;margin:10px 0 20px 0;padding:0;vertical-align:top;width:100%">
-                                <tbody>
-                                <tr>
-                                    <td style="text-align:center;font-size:36px;font-weight:400;">
-                                        <a href="https://forum.yawik.org/new" style="text-decoration:none;font-weight:bold;background-color:#2F70AC;color:#FFFFFF;"><strong>3</strong></a>
-                                    </td>
-                                    <td style="text-align:center;font-size:36px;font-weight:400;">
-                                        <a href="https://forum.yawik.org/about" style="text-decoration:none;font-weight:bold;background-color:#2F70AC;color:#FFFFFF;"><strong>3</strong></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-size:14px;font-weight:400;text-align:center;">
-                                        <a href="https://forum.yawik.org/new" style="text-decoration:none;font-weight:bold;background-color:#2F70AC; color: #FFFFFF;"><strong>Neue Themen</strong></a>
-                                    </td>
-                                    <td style="font-size:14px;font-weight:400;text-align:center;">
-                                        <a href="https://forum.yawik.org/about" style="text-decoration:none;font-weight:bold;background-color:#2F70AC;color: #FFFFFF;"><strong>Neue Benutzer</strong></a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            -->
+                            <!--
+
+@todo: maybe we can add things like "new jobs since", "new companies since" .....
+
+
+<table style="table-layout:fixed;margin:10px 0 20px 0;padding:0;vertical-align:top;width:100%">
+    <tbody>
+    <tr>
+        <td style="text-align:center;font-size:36px;font-weight:400;">
+            <a href="https://forum.yawik.org/new" style="text-decoration:none;font-weight:bold;background-color:#2F70AC;color:#FFFFFF;"><strong>3</strong></a>
+        </td>
+        <td style="text-align:center;font-size:36px;font-weight:400;">
+            <a href="https://forum.yawik.org/about" style="text-decoration:none;font-weight:bold;background-color:#2F70AC;color:#FFFFFF;"><strong>3</strong></a>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size:14px;font-weight:400;text-align:center;">
+            <a href="https://forum.yawik.org/new" style="text-decoration:none;font-weight:bold;background-color:#2F70AC; color: #FFFFFF;"><strong>Neue Themen</strong></a>
+        </td>
+        <td style="font-size:14px;font-weight:400;text-align:center;">
+            <a href="https://forum.yawik.org/about" style="text-decoration:none;font-weight:bold;background-color:#2F70AC;color: #FFFFFF;"><strong>Neue Benutzer</strong></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+-->
                             <center style="background-color:#2F70AC;color:#FFFFFF;font-size:22px;font-weight:400;margin-bottom: 8px;">
-                                <?php sprintf($this->translate("New Jobs for \"%\""),$searchProfile->getQuery())?>
+                                <?php $query=$searchProfile->getQuery()?>
+                                <?= sprintf($this->translate("New Jobs for \"%s\""),$query['q'])?>
                             </center>
                         </td>
                     </tr>
@@ -123,7 +126,7 @@ $homepageUrl=$this->serverUrl($this->basePath('/'));
                 <table align="center" style="border-spacing:0;background:#fefefe;margin:0;padding:0;text-align:center;vertical-align:top;width:100%">
                     <tbody>
                     <tr>
-                        <td style="-moz-hyphens:auto;-webkit-hyphens:auto;border-collapse:collapse!important;color:#0a0a0a;hyphens:auto;line-height:1.3;marg in:0;padding:0;text-align:left;vertical-align:top;word-wrap:normal">
+                        <td style="-moz-hyphens:auto;-webkit-hyphens:auto;border-collapse:collapse!important;color:#0a0a0a;hyphens:auto;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:normal">
 
                         <?php foreach ($this->jobs as $job): /** @var \Jobs\Entity\Job $job */ ?>
                         <?php
@@ -138,7 +141,20 @@ $homepageUrl=$this->serverUrl($this->basePath('/'));
                                 <tr>
                                     <td style="margin:0;padding:0 0 0 16px;text-align:left;vertical-align:top;">
                                         <p style="color:#8f8f8f;line-height:1.3;margin: 20px 0 0 0;">
-                                            <a href="https://forum.yawik.org/c/faq" style="text-decoration:none;font-weight: bold; color: #006699; font-size: 0.857em; white-space: nowrap; display: inline-block; position:relative; line-height:1; margin-right:10px;"><span style="background-color:#AB9364;display:inline-block;width:10px;height:10px;"></span><span style="color:#222222 !important; vertical-align: text-top; line-height: 1; margin-left: 4px; padding-left: 2px; display:inline;max-width: 150px; overflow: hidden; text-overflow:ellipsis;" data-drop-close="true">FAQ</span></a>
+                                            <a href="https://forum.yawik.org/c/faq" style="text-decoration:none;font-weight: bold; color: #006699; font-size: 0.857em; white-space: nowrap; display: inline-block; position:relative; line-height:1; margin-right:10px;">
+                                                <span style="background-color:#AB9364;display:inline-block;width:10px;height:10px;"></span>
+                                                <span style="color:#222222 !important; vertical-align: text-top; line-height: 1;margin-left:4px;padding-left:2px;display:inline;max-width:150px;overflow: hidden;text-overflow:ellipsis;" data-drop-close="true">
+                                                    <?php if($job->getClassifications() && $job->getClassifications()->getProfessions()):?>
+                                                    <ul>
+                                                    <?php
+                                                    foreach( $job->getClassifications()->getProfessions()->getItems() as $profession) {
+                                                        echo '<li>'.$profession->getName().'</li>';
+                                                    }
+                                                    ?>
+                                                    </ul>
+                                                    <?php endif?>
+                                                </span>
+                                            </a>
                                         </p>
                                     </td>
                                     <td style="margin:0;padding: 0 16px 0 0;text-align:right;vertical-align:top;">
