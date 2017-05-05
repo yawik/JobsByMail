@@ -5,7 +5,10 @@ $searchProfile = $this->searchProfile;
 /** @var \JobsByMail\Service\Hash $hash */
 $hash = $this->hash;
 ?>
-
+<?=$this->partial('mail/header',[
+    'title' => $this->translate('Confirm your search profile.')
+])
+?>
 <p>
     <a href="<?=$this->serverUrl($this->url('lang/jobsbymail/confirm', ['id' => $searchProfile->getId(), 'hash' => $hash->generate($searchProfile)]))?>"><?=$this->translate('Confirm your search profile.')?></a>
 </p>

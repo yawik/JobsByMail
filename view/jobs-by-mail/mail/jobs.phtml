@@ -46,7 +46,6 @@ $homepageUrl=$this->serverUrl($this->basePath('/'));
 <body>
     <?=$this->partial('mail/header',[
         'title' => sprintf($this->translate('new jobs since %s'), $this->dateFormat($searchProfile->getDateLastMail(), 'short', 'none')),
-        'homepageUrl' => $homepageUrl
     ])
     ?>
 
