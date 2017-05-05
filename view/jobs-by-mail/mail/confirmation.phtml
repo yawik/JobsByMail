@@ -7,7 +7,7 @@ $hash = $this->hash;
 ?>
 
 <p>
-    <a href="<?=$this->serverUrl($this->basePath($this->url('lang/jobsbymail/confirm', ['id' => $searchProfile->getId(), 'hash' => $hash->generate($searchProfile)])))?>"><?=$this->translate('Confirm your search profile.')?></a>
+    <a href="<?=$this->serverUrl($this->url('lang/jobsbymail/confirm', ['id' => $searchProfile->getId(), 'hash' => $hash->generate($searchProfile)]))?>"><?=$this->translate('Confirm your search profile.')?></a>
 </p>
 
 <?=$this->partial('mail/footer')?>

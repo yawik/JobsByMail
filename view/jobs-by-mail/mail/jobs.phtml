@@ -45,27 +45,13 @@ $unsubscribeUrl = $this->serverUrl(
 $homepageUrl=$this->serverUrl($this->basePath('/'));
 
 ?>
-    <body>
-    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
-    <title></title>
-    <!--[if mso]>
-    <style type="text/css">
-        body, table, td, th, h1, h2, h3 {font-family: Helvetica, Arial, sans-serif !important;}
-    </style>
-    <![endif]-->
-    <span style="display:none!important;color:#f3f3f3;font-size:1px;line-height:1px;max-height:0;max-width:0;mso-hide:all!important;opacity:0;overflow:hidden;visibility:hidden">
-        Eine kurze Zusammenfassung seit deinem letzten Besuch seit <?=$this->dateFormat($searchProfile->getDateLastMail(), 'short', 'none');?>
-    </span>
+<body>
+    <?=$this->partial('mail/header',[
+        'title' => sprintf($this->translate('new jobs since %s'), $this->dateFormat($searchProfile->getDateLastMail(), 'short', 'none')),
+        'homepageUrl' => $homepageUrl
+    ])
+    ?>
 
-    <table style="background-color:#ffffff;width:100%;">
-        <tr>
-            <td align="center" style="text-align: center;padding: 20px 0; font-family:Helvetica,Arial,sans-serif;">
-                <a href="<?=$homepageUrl?>" style="text-decoration:none;font-weight:bold;color:#333333;font-size:22px;text-decoration:none;">
-                    <img src="https://forum.yawik.org/uploads/default/original/1X/824590c0aa2e561046414d4cda97bcbfa450e7cf.jpg" height="40" style="clear:both;display:block;height:40px;margin:auto;max-width:100%;outline:0;text-decoration:none;" alt="Neue Jobs">
-                </a>
-            </td>
-        </tr>
-    </table>
 
     <table style="width:100%;background:#f3f3f3;padding:0;border-spacing:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;font-weight:200;line-height:1.3;vertical-align:top;">
         <tr>
@@ -321,7 +307,7 @@ $homepageUrl=$this->serverUrl($this->basePath('/'));
 
     <!-- prevent Gmail on iOS font size manipulation -->
     <div style="display:none;white-space:nowrap;font:15px courier;line-height:0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-    </body>
 
+    <?=$this->partial('mail/footer') ?>
 
-<?=$this->partial('mail/footer') ?>
+</body>
