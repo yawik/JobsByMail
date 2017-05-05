@@ -31,14 +31,12 @@ $searchProfile = $this->searchProfile;
 $hash = $this->hash;
 $lang = $searchProfile->getLanguage();
 $unsubscribeUrl = $this->serverUrl(
-    $this->basePath(
-        $this->url('lang/jobsbymail/unsubscribe',
-                   [
-                       'lang' => $lang,
-                       'id' => $searchProfile->getId(),
-                       'hash' => $hash->generate($searchProfile)
-                   ]
-        )
+    $this->url('lang/jobsbymail/unsubscribe',
+               [
+                   'lang' => $lang,
+                   'id' => $searchProfile->getId(),
+                   'hash' => $hash->generate($searchProfile)
+               ]
     )
 );
 
