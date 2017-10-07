@@ -8,7 +8,6 @@
  */
 namespace JobsByMail\Form;
 
-use Zend\Form\Form;
 use Core\Form\ViewPartialProviderInterface;
 use Core\Form\ViewPartialProviderTrait;
 use Jobs\Form\JobboardSearch;
