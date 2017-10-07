@@ -29,7 +29,7 @@ class MailerFactory implements FactoryInterface
         $hash = $container->get(Hash::class);
         $moduleOptions = $container->get('Core/Options');
         $organizationImageCache = $container->get('Organizations\ImageFileCache\Manager');
-        $log = $container->get('ErrorLogger');
+        $log = $container->get('Log/Core/Mail');
         
         return new Mailer($mailService, $hash, $moduleOptions, $organizationImageCache, $log);
     }
