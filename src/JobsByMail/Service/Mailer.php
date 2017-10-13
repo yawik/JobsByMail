@@ -16,7 +16,6 @@ use LogicException;
 use Zend\Mail\Exception\ExceptionInterface as MailException;
 use Zend\Log\LoggerInterface as Log;
 use Zend\Mail\Message;
-use JobsByMail\Service\Hash;
 use InvalidArgumentException;
 
 class Mailer
