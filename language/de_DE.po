@@ -21,7 +21,7 @@ msgstr ""
 #: view/jobs-by-mail/unsubscribe/index.phtml:9
 #, php-format
 msgid "Search profile with the email address %s has been unsubscribed."
-msgstr "Das Suchprofil für die E-Mail Adresse %s wurde abbestellt."
+msgstr "Das Suchprofil für die E-Mail Adresse %s wurde deaktiviert."
 
 #: view/jobs-by-mail/unsubscribe/index.phtml:13
 msgid "Search profile does not exist or is already unsubscribed"
