@@ -29,7 +29,7 @@ class ConfirmControllerFactory implements FactoryInterface
         $searchProfileRepository = $container->get('repositories')->get('JobsByMail/SearchProfile');
         $subscriber = $container->get(Subscriber::class);
         $hash = $container->get(Hash::class);
-        $translator = $container->get('Translator');
+        $translator = $container->get('translator');
         
         return new ConfirmController($searchProfileRepository, $subscriber, $hash, $translator);
     }

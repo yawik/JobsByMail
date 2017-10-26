@@ -55,7 +55,7 @@ class ConfirmControllerFactoryTest extends \PHPUnit_Framework_TestCase
                 ['repositories', $repositories],
                 [Subscriber::class, $subscriber],
                 [Hash::class, new Hash()],
-                ['Translator', $translator]
+                ['translator', $translator]
             ]));
         
         
