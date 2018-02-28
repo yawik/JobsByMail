@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Cross Applicant Management - JobsByMail package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - JobsByMail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-13 08:52+0200\n"
+"POT-Creation-Date: 2018-02-28 19:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,4 +93,14 @@ msgstr ""
 
 #: language/_annotated_strings.php:6
 msgid "Enter your email address"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+#, php-format
+msgid "New jobs for you on %s"
+msgstr ""
+
+#: language/_annotated_strings.php:12
+#, php-format
+msgid "Confirm your search profile on %s"
 msgstr ""
