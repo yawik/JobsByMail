@@ -1,21 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the Cross Applicant Management - JobsByMail package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Cross Applicant Management - JobsByMail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-05 12:02+0200\n"
-"PO-Revision-Date: 2017-05-05 12:02+0200\n"
-"Last-Translator: blu-IT <de_masi@blu-it.de>, 2017\n"
+"POT-Creation-Date: 2018-02-28 20:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: blu-IT, 2017\n"
 "Language-Team: Italian (https://www.transifex.com/yawik/teams/9152/it/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: it\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/JobsByMail/Controller/ConfirmController.php:64
+msgid "Time to confirm a search profile has expired"
+msgstr "Il tempo per confermare un profilo di ricerca è scaduto"
+
+#: src/JobsByMail/Controller/ConfirmController.php:68
+msgid "Invalid URL"
+msgstr "URL non valido"
 
 #: view/jobs-by-mail/unsubscribe/index.phtml:9
 #, php-format
@@ -25,6 +34,21 @@ msgstr "Il profilo di ricerca con l'indirizzo email %s è stato annullato."
 #: view/jobs-by-mail/unsubscribe/index.phtml:13
 msgid "Search profile does not exist or is already unsubscribed"
 msgstr "Profilo di ricerca non esiste o è già stato annullato"
+
+#: view/jobs-by-mail/mail/jobs.phtml:48
+#, php-format
+msgid "new jobs since %s"
+msgstr "Nuovi posti di lavoro da %s"
+
+#: view/jobs-by-mail/mail/jobs.phtml:103
+#, php-format
+msgid "New Jobs for \"%s\""
+msgstr "Nuovi posti di lavoro per \"%s\""
+
+#: view/jobs-by-mail/mail/confirmation.phtml:9
+#: view/jobs-by-mail/mail/confirmation.phtml:13
+msgid "Confirm your search profile."
+msgstr "Conferma il tuo profilo di ricerca."
 
 #: view/jobs-by-mail/form/subscribe/form.phtml:10
 #: view/jobs-by-mail/form/subscribe/form.phtml:12
@@ -67,29 +91,6 @@ msgstr ""
 msgid "Your search profile with email address %s is confirmed now."
 msgstr "Il tuo profilo di ricerca con l'indirizzo e-mail %s è ora confermato."
 
-#: view/jobs-by-mail/mail/confirmation.phtml:9
-#: view/jobs-by-mail/mail/confirmation.phtml:13
-msgid "Confirm your search profile."
-msgstr "Conferma il tuo profilo di ricerca."
-
-#: view/jobs-by-mail/mail/jobs.phtml:48
-#, php-format
-msgid "new jobs since %s"
-msgstr "Nuovi posti di lavoro da %s"
-
-#: view/jobs-by-mail/mail/jobs.phtml:103
-#, php-format
-msgid "New Jobs for \"%s\""
-msgstr "Nuovi posti di lavoro per \"%s\""
-
-#: src/JobsByMail/Controller/ConfirmController.php:64
-msgid "Time to confirm a search profile has expired"
-msgstr "Il tempo per confermare un profilo di ricerca è scaduto"
-
-#: src/JobsByMail/Controller/ConfirmController.php:68
-msgid "Invalid URL"
-msgstr "URL non valido"
-
 #: language/_annotated_strings.php:3
 msgid "Email"
 msgstr "Email"
@@ -97,3 +98,13 @@ msgstr "Email"
 #: language/_annotated_strings.php:6
 msgid "Enter your email address"
 msgstr "Inserisci il tuo indirizzo email"
+
+#: language/_annotated_strings.php:9
+#, php-format
+msgid "New jobs for you on %s"
+msgstr ""
+
+#: language/_annotated_strings.php:12
+#, php-format
+msgid "Confirm your search profile on %s"
+msgstr ""
