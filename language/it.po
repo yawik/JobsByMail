@@ -102,9 +102,9 @@ msgstr "Inserisci il tuo indirizzo email"
 #: language/_annotated_strings.php:9
 #, php-format
 msgid "New jobs for you on %s"
-msgstr ""
+msgstr "Nuove offerte di lavoro per te su %s"
 
 #: language/_annotated_strings.php:12
 #, php-format
 msgid "Confirm your search profile on %s"
-msgstr ""
+msgstr "Conferma il tuo profilo di ricerca su %s"
