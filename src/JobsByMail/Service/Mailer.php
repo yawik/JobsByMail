@@ -16,7 +16,6 @@ use LogicException;
 use Zend\Mail\Exception\ExceptionInterface as MailException;
 use Zend\Log\LoggerInterface as Log;
 use Zend\Mail\Message;
-use JobsByMail\Service\Hash;
 use InvalidArgumentException;
 
 class Mailer
@@ -85,7 +84,7 @@ class Mailer
         
         /** @var \Core\Mail\HTMLTemplateMessage $message */
         $message = $this->mailService->get('htmltemplate')
-            ->setSubject('New jobs for you on %s', $this->moduleOptions->getSiteName())
+            ->setSubject( /*@translate*/ 'New jobs for you on %s', $this->moduleOptions->getSiteName())
             ->setTo($searchProfile->getEmail())
             ->setTemplate('jobs-by-mail/mail/jobs')
             ->setVariable('searchProfile', $searchProfile)
@@ -112,7 +111,7 @@ class Mailer
         
         /** @var \Core\Mail\HTMLTemplateMessage $message */
         $message = $this->mailService->get('htmltemplate')
-            ->setSubject('Confirm your search profile on %s', $this->moduleOptions->getSiteName())
+            ->setSubject( /* @translate */ 'Confirm your search profile on %s', $this->moduleOptions->getSiteName())
             ->setTo($searchProfile->getEmail())
             ->setTemplate('jobs-by-mail/mail/confirmation')
             ->setVariable('searchProfile', $searchProfile)

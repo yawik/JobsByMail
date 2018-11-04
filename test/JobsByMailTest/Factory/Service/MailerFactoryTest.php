@@ -54,7 +54,7 @@ class MailerFactoryTest extends \PHPUnit_Framework_TestCase
                 [Hash::class, new Hash()],
                 ['Core/Options', $coreOptions],
                 ['Organizations\ImageFileCache\Manager', $organizationImageCache],
-                ['ErrorLogger', $errorLogger],
+                ['Log/Core/Mail', $errorLogger],
             ]));
         
         

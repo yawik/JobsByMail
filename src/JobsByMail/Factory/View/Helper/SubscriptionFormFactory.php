@@ -19,7 +19,7 @@ class SubscriptionFormFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
-     * @param unknown $requestedName
+     * @param string $requestedName
      * @param array $options
      * @return \JobsByMail\View\Helper\SubscriptionForm
      */
