@@ -16,7 +16,7 @@ return [
             ],
             'annotation' => [
                 'paths' => [
-                    __DIR__ . '/../src/JobsByMail/Entity'
+                    __DIR__ . '/../src/Entity'
                 ]
             ]
         ]

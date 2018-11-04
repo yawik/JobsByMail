@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="Bootstrap.php" colors="true">
-    <logging>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-        <log type="coverage-php" target="build/logs/clover.serialized"/>
-    </logging>
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
     <filter>
         <whitelist>
-            <directory suffix=".php">../src</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
     <testsuites>
         <testsuite name="JobsByMailTest">
-            <directory>./JobsByMailTest</directory>
+            <directory>./test/JobsByMailTest</directory>
         </testsuite>
     </testsuites>
 </phpunit>
