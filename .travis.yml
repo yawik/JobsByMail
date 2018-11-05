@@ -15,6 +15,7 @@ cache:
 env:
   global:
   - PECLMONGO="mongodb-stable"
+  - PECLSOLR="solr-2.4.0"
 
 matrix:
   fast_finish: true
@@ -38,6 +39,17 @@ before_install:
 install:
   # install php packages required for running YAWIK phpunit tests
   - pecl install -f ${PECLMONGO}
+  # using solr master version in php 7.2
+  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
+      export HASH=de1d724299780d927cb9ed14268449ac8a28204b;
+      curl --location https://github.com/php/pecl-search_engine-solr/archive/${HASH}.tar.gz -o solr.tgz;
+      sh -c "tar xfz solr.tgz";
+      sh -c "cd pecl-search_engine-solr-${HASH} && phpize && ./configure && make && sudo make install";
+    else
+      sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz";
+      sh -c "tar xfz $PECLSOLR.tgz";
+      sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install";
+    fi'
   - phpenv config-add .travis/phpenv.ini
   - COMPOSER_MEMORY_LIMIT=-1 composer install
 
