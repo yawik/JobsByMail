@@ -10,7 +10,6 @@ return [
         'Jobs',
         'Applications',
         'Organizations',
-        'Geo',
         'Settings',
         'JobsByMail'
     ],
