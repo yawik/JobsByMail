@@ -5,8 +5,8 @@ This module lets users subscribe to latest job postings by Email
 
 Build status:
 
-[![Build Status](https://api.travis-ci.org/yawik/JobsByMail.svg)](https://travis-ci.org/yawik/JobsByMail)
-[![Coverage Status](https://coveralls.io/repos/github/yawik/JobsByMail/badge.svg?branch=develop)](https://coveralls.io/github/yawik/JobsByMail?branch=develop)
+[![Build Status](https://api.travis-ci.org/yawik/JobsByMail.svg?branch=master)](https://travis-ci.org/yawik/JobsByMail)
+[![Coverage Status](https://coveralls.io/repos/github/yawik/JobsByMail/badge.svg?branch=master)](https://coveralls.io/github/yawik/JobsByMail?branch=master)
 
 Requirements
 ------------
