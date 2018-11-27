@@ -9,9 +9,9 @@ return [
         'Auth',
         'Jobs',
         'Applications',
-        'Organizations',
         'Geo',
         'Settings',
+        'Organizations',
         'JobsByMail'
     ],
 ];
