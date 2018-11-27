@@ -29,6 +29,7 @@
         "yawik/settings": "^0.32@dev",
         "yawik/applications": "^0.32@dev",
         "yawik/cv": "^0.32@dev",
+        "yawik/geo": "^0.32@dev",
         "yawik/organizations": "^0.32@dev",
         "yawik/composer-plugin": "^0.32@dev"
     },
