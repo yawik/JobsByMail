@@ -42,7 +42,7 @@ before_install:
 
 install:
   # install php packages required for running YAWIK phpunit tests
-  - pecl install -f ${PECLMONGO}
+  - php --ri mongodb || pecl install -f $PECLMONGO
   # using solr master version in php 7.2
   - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" || ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
       export HASH=de1d724299780d927cb9ed14268449ac8a28204b;
