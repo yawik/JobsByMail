@@ -69,12 +69,12 @@ before_script:
   - chmod 777 build/behat
 
 script:
-- 'if [[ $COVERAGE = yes ]]; then
+  - 'if [[ $COVERAGE = yes ]]; then
         ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
     else
         ./vendor/bin/phpunit --verbose;
-        ./vendor/bin/behat;
     fi'
+  - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat; fi;
 
 after_failure:
   - "./vendor/lakion/mink-debug-extension/travis/tools/upload-textfiles \"build/behat/*.log\""
