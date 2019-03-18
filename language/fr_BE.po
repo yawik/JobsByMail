@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Cross Applicant Management - JobsByMail package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Cross Applicant Management - JobsByMail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-28 20:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Carsten Bleek <cbleek@yawik.org>, 2017\n"
+"Language-Team: French (Belgium) (https://www.transifex.com/yawik/teams/9152/fr_BE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_BE\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/JobsByMail/Controller/ConfirmController.php:64
+msgid "Time to confirm a search profile has expired"
+msgstr ""
+
+#: src/JobsByMail/Controller/ConfirmController.php:68
+msgid "Invalid URL"
+msgstr ""
+
+#: view/jobs-by-mail/unsubscribe/index.phtml:9
+#, php-format
+msgid "Search profile with the email address %s has been unsubscribed."
+msgstr ""
+
+#: view/jobs-by-mail/unsubscribe/index.phtml:13
+msgid "Search profile does not exist or is already unsubscribed"
+msgstr ""
+
+#: view/jobs-by-mail/mail/jobs.phtml:48
+#, php-format
+msgid "new jobs since %s"
+msgstr ""
+
+#: view/jobs-by-mail/mail/jobs.phtml:103
+#, php-format
+msgid "New Jobs for \"%s\""
+msgstr ""
+
+#: view/jobs-by-mail/mail/confirmation.phtml:9
+#: view/jobs-by-mail/mail/confirmation.phtml:13
+msgid "Confirm your search profile."
+msgstr ""
+
+#: view/jobs-by-mail/form/subscribe/form.phtml:10
+#: view/jobs-by-mail/form/subscribe/form.phtml:12
+msgid "Jobs By Mail"
+msgstr ""
+
+#: view/jobs-by-mail/form/subscribe/form.phtml:20
+msgid "Get the right Job via e-mail"
+msgstr ""
+
+#: view/jobs-by-mail/form/subscribe/form.phtml:52
+msgid "Close"
+msgstr "Proche"
+
+#: view/jobs-by-mail/form/subscribe/form.phtml:53
+msgid "Subscribe"
+msgstr ""
+
+#: view/jobs-by-mail/form/subscribe/result.phtml:8
+msgid "Your search profile has been created."
+msgstr ""
+
+#: view/jobs-by-mail/form/subscribe/result.phtml:11
+#, php-format
+msgid ""
+"Confirm you subscription by clicking a link we have just sent you to your "
+"email %s"
+msgstr ""
+
+#: view/jobs-by-mail/form/subscribe/result.phtml:15
+msgid ""
+"We are sorry. An error occurred during sending you a confirmation email."
+msgstr ""
+
+#: view/jobs-by-mail/confirm/index.phtml:7
+#, php-format
+msgid "Your search profile with email address %s is confirmed now."
+msgstr ""
+
+#: language/_annotated_strings.php:3
+msgid "Email"
+msgstr "Email"
+
+#: language/_annotated_strings.php:6
+msgid "Enter your email address"
+msgstr ""
+
+#: language/_annotated_strings.php:9
+#, php-format
+msgid "New jobs for you on %s"
+msgstr ""
+
+#: language/_annotated_strings.php:12
+#, php-format
+msgid "Confirm your search profile on %s"
+msgstr ""

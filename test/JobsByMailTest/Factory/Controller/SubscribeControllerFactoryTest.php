@@ -79,7 +79,7 @@ class SubscribeControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         
         $container = $this->getMockBuilder(ServiceLocatorInterface::class)
-            ->setMethods(['getServiceLocator', 'get', 'has'])
+            ->setMethods(['getServiceLocator', 'get', 'has', 'build'])
             ->getMock();
         $container->expects($this->once())
             ->method('getServiceLocator')

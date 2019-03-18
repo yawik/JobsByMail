@@ -1,6 +1,4 @@
-!*
-*~
+build
 build.properties
-/test/coverage
-/test/build
-/test/phpunit.xml
+composer.lock
+vendor

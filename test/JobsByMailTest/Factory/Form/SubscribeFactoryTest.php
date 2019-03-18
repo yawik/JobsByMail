@@ -12,7 +12,7 @@ namespace JobsByMailTest\Factory\Form;
 use Interop\Container\ContainerInterface;
 use JobsByMail\Factory\Form\SubscribeFactory;
 use JobsByMail\Form\SubscribeForm;
-use Zend\Mvc\Router\RouteInterface;
+use Zend\Router\RouteInterface;
 use JobsByMail\Options\SubscribeOptions;
 
 /**

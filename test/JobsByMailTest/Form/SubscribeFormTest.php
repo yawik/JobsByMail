@@ -9,9 +9,10 @@
 
 namespace JobsByMailTest\Form;
 
-use Zend\Form\FormElementManager\FormElementManagerV2Polyfill;
+use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use JobsByMail\Form\SubscribeForm;
 use Zend\Form\Element\Select;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * @coversDefaultClass \JobsByMail\Form\SubscribeForm
@@ -24,7 +25,11 @@ class SubscribeFormTest extends \PHPUnit_Framework_TestCase
      */
     public function testInit()
     {
-        $formElementManager = new FormElementManagerV2Polyfill();
+        $container = $this->getMockBuilder(ServiceLocatorInterface::class)
+            ->setMethods(['getServiceLocator', 'get', 'has', 'build'])
+            ->getMock();
+        
+        $formElementManager = new FormElementManager($container);
         $formElementManager->setService('LocationSelect', new Select());
         
         $form = new SubscribeForm();
