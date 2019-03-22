@@ -20,11 +20,16 @@ Installation
 recommended
 
 ```
-cd YAWIK/module
 git clone https://github.com/yawik/JobsByMail.git
+cd JobsByMail
+composer install
+composwe serv
 ```
 
-Or by using composer
+this will install all required yawik modules in the verdor dir and starts a development server which lets you 
+access your yawik via http://localhost:8000
+
+If you have a running YAWIK installation, you can add the module by
 
 ```
 composer require yawik/jobs-by-mail

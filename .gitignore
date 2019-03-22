@@ -1,4 +1,7 @@
+*~
 build
 build.properties
 composer.lock
 vendor
+node_modules/
+package-lock.json
