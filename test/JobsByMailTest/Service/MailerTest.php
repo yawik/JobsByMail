@@ -14,11 +14,11 @@ use Core\Mail\MailService;
 use JobsByMail\Service\Hash;
 use Core\Options\ModuleOptions;
 use Organizations\ImageFileCache\Manager as OrganizationImageCache;
-use Zend\Log\LoggerInterface as Log;
+use Laminas\Log\LoggerInterface as Log;
 use JobsByMail\Entity\SearchProfile;
 use Core\Mail\HTMLTemplateMessage;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
-use Zend\Mail\Exception\RuntimeException as MailRuntimeException;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\Mail\Exception\RuntimeException as MailRuntimeException;
 
 /**
  * @coversDefaultClass \JobsByMail\Service\Mailer

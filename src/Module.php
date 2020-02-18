@@ -11,9 +11,9 @@
 namespace JobsByMail;
 
 use Core\ModuleManager\ModuleConfigLoader;
-use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
-use Zend\Console\Adapter\AdapterInterface as Console;
-use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Laminas\ModuleManager\Feature\DependencyIndicatorInterface;
+use Laminas\Console\Adapter\AdapterInterface as Console;
+use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
 /**
  * Bootstrap module

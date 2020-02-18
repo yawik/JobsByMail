@@ -10,13 +10,13 @@
 namespace JobsByMailTest\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Factory\Controller\ConfirmControllerFactory;
 use JobsByMail\Controller\ConfirmController;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Service\Hash;
 use JobsByMail\Service\Subscriber;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 
 /**
  * @coversDefaultClass \JobsByMail\Factory\Controller\ConfirmControllerFactory

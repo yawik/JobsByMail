@@ -8,9 +8,9 @@
  */
 namespace JobsByMail\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\View\Model\ViewModel;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Service\Subscriber;
 use JobsByMail\Service\Hash;

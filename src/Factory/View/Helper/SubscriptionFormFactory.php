@@ -11,8 +11,8 @@ namespace JobsByMail\Factory\View\Helper;
 
 use JobsByMail\View\Helper\SubscriptionForm;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Form\SubscribeForm;
 
 class SubscriptionFormFactory implements FactoryInterface
@@ -34,7 +34,7 @@ class SubscriptionFormFactory implements FactoryInterface
 
     /**
      * {@inheritDoc}
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

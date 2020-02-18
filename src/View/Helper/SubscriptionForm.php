@@ -10,13 +10,13 @@
  */
 namespace JobsByMail\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 use JobsByMail\Form\SubscribeForm;
 use Core\Controller\Plugin\PaginationParams;
 use Auth\AuthenticationService;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 use Solr\FacetsProviderInterface;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 use Core\Form\View\Helper\Form as FormHelper;
 
 /**

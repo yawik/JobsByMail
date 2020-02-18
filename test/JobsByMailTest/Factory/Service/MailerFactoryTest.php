@@ -10,12 +10,12 @@
 namespace JobsByMailTest\Factory\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Factory\Service\MailerFactory;
 use Core\Mail\MailService;
 use Core\Options\ModuleOptions;
 use Organizations\ImageFileCache\Manager as OrganizationImageCache;
-use Zend\Log\LoggerInterface as Log;
+use Laminas\Log\LoggerInterface as Log;
 use JobsByMail\Service\Mailer;
 use JobsByMail\Service\Hash;
 

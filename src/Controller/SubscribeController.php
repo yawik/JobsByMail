@@ -8,12 +8,12 @@
  */
 namespace JobsByMail\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
 use Interop\Container\ContainerInterface;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\View\Renderer\RendererInterface;
 use JobsByMail\Form\SubscribeForm;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Service\Subscriber;
@@ -70,7 +70,7 @@ class SubscribeController extends AbstractActionController
     
     public function indexAction()
     {
-        /** @var \Zend\Http\Request $request */
+        /** @var \Laminas\Http\Request $request */
         $request = $this->getRequest();
         
         if (!$request->isPost() || !$request->isXmlHttpRequest()) {

@@ -11,8 +11,8 @@ namespace JobsByMail\Factory\Service;
 
 use JobsByMail\Service\JobSeeker;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Jobs\Entity\Location;
 
 class JobSeekerFactory implements FactoryInterface
@@ -32,7 +32,7 @@ class JobSeekerFactory implements FactoryInterface
 
     /**
      * {@inheritDoc}
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

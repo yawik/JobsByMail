@@ -10,13 +10,13 @@
 namespace JobsByMailTest\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Factory\Controller\SubscribeControllerFactory;
 use JobsByMail\Controller\SubscribeController;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Service\Mailer;
 use JobsByMail\Service\Subscriber;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\View\Renderer\RendererInterface;
 
 /**
  * @coversDefaultClass \JobsByMail\Factory\Controller\SubscribeControllerFactory

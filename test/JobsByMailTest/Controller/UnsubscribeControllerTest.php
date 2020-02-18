@@ -14,8 +14,8 @@ use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Service\Subscriber;
 use JobsByMail\Service\Hash;
 use JobsByMail\Entity\SearchProfile;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\View\Model\ViewModel;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\View\Model\ViewModel;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**

@@ -10,7 +10,7 @@
 namespace JobsByMailTest\Factory\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Factory\Service\SubscriberFactory;
 use JobsByMail\Service\Subscriber;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;

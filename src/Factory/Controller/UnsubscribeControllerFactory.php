@@ -11,8 +11,8 @@ namespace JobsByMail\Factory\Controller;
 
 use JobsByMail\Controller\UnsubscribeController;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Service\Subscriber;
 use JobsByMail\Service\Hash;
 
@@ -35,7 +35,7 @@ class UnsubscribeControllerFactory implements FactoryInterface
 
     /**
      * {@inheritDoc}
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

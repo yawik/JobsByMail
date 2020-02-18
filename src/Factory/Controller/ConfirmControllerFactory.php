@@ -11,8 +11,8 @@ namespace JobsByMail\Factory\Controller;
 
 use JobsByMail\Controller\ConfirmController;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Service\Hash;
 use JobsByMail\Service\Subscriber;
 
@@ -36,7 +36,7 @@ class ConfirmControllerFactory implements FactoryInterface
 
     /**
      * {@inheritDoc}
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
