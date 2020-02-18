@@ -13,15 +13,15 @@ $options = $this->services('Core/Options');
 $siteName = $options->getSiteName();
 $operator = $options->getOperator();
 
-/** @var \Zend\View\Renderer\PhpRenderer $this */
-/** @var \Zend\View\Helper\ServerUrl $serverUrl */
+/** @var \Laminas\View\Renderer\PhpRenderer $this */
+/** @var \Laminas\View\Helper\ServerUrl $serverUrl */
 $serverUrl = $this->plugin('serverUrl');
 $serverUrl->setHost($this->host)
     ->setScheme($this->scheme);
-/** @var \Zend\View\Helper\BasePath $basePath */
+/** @var \Laminas\View\Helper\BasePath $basePath */
 $basePath = $this->plugin('basePath');
 $basePath->setBasePath($this->basePath);
-/** @var \Zend\Mvc\Router\Http\TreeRouteStack $router */
+/** @var \Laminas\Mvc\Router\Http\TreeRouteStack $router */
 $router = $this->services('HttpRouter');
 $router->setBaseUrl($this->basePath);
 /** @var \JobsByMail\Entity\SearchProfileInterface $searchProfile */

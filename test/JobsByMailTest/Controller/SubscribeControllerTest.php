@@ -15,13 +15,13 @@ use JobsByMail\Service\Subscriber;
 use JobsByMail\Service\Mailer;
 use JobsByMail\Entity\SearchProfile;
 use JobsByMail\Form\SubscribeForm;
-use Zend\Http\Request;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Stdlib\Parameters;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Laminas\Http\Request;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Stdlib\Parameters;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 use Interop\Container\ContainerInterface;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\View\Renderer\RendererInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**

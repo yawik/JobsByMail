@@ -10,7 +10,7 @@
 namespace JobsByMailTest\Factory\View\Helper;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use JobsByMail\Factory\View\Helper\SubscriptionFormFactory;
 use JobsByMail\View\Helper\SubscriptionForm;
 use JobsByMail\Form\SubscribeForm;

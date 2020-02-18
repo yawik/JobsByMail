@@ -8,7 +8,7 @@
  */
 namespace JobsByMail\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 use JobsByMail\Repository\SearchProfile as SearchProfileRepository;
 use JobsByMail\Options\SubscribeOptions;
 use JobsByMail\Service\JobSeeker;

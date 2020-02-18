@@ -26,7 +26,7 @@ class SubscribeForm extends JobboardSearch implements ViewPartialProviderInterfa
 
     /**
      * {@inheritDoc}
-     * @see \Zend\Form\Element::init()
+     * @see \Laminas\Form\Element::init()
      */
     public function init()
     {

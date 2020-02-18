@@ -48,7 +48,7 @@ class JobSeeker
             $params['l'] = $this->getLocationEntity()->fromString($params['l']);
         }
         
-        /** @var \Zend\Paginator\Paginator $paginator */
+        /** @var \Laminas\Paginator\Paginator $paginator */
         $paginator = call_user_func($this->paginatorFactory, 'Jobs/Board', [], $params);
 
         return $paginator->getAdapter()->getItems(0, $limit);

@@ -3,23 +3,28 @@
  * YAWIK
  *
  * @filesource
- * @copyright (c) 2013 - 2017 Cross Solution (http://cross-solution.de)
+ * @copyright (c) 2013 - 2020 Cross Solution (http://cross-solution.de)
  * @license   MIT
  * @author    @author Carsten Bleek <bleek@cross-solution.de>
  */
 
 namespace JobsByMail;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\ModuleManager\ModuleConfigLoader;
-use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
-use Zend\Console\Adapter\AdapterInterface as Console;
-use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
+use Laminas\ModuleManager\Feature\DependencyIndicatorInterface;
+use Laminas\Console\Adapter\AdapterInterface as Console;
+use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
 /**
  * Bootstrap module
  */
-class Module implements DependencyIndicatorInterface, ConsoleUsageProviderInterface
+class Module implements DependencyIndicatorInterface, ConsoleUsageProviderInterface, VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = '0.3.0';
 
     /**
      * Loads module specific configuration.
@@ -39,7 +44,7 @@ class Module implements DependencyIndicatorInterface, ConsoleUsageProviderInterf
     {
         return ['Jobs'];
     }
-    
+
     /**
      * {@inheritDoc}
      * @see ConsoleUsageProviderInterface::getConsoleUsage()

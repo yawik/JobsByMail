@@ -13,14 +13,14 @@ use JobsByMail\View\Helper\SubscriptionForm as SubscriptionFormHelper;
 use JobsByMail\Form\SubscribeForm;
 use Core\Controller\Plugin\PaginationParams;
 use Auth\AuthenticationService;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 use Solr\Paginator\Paginator as PaginatorFacetsProvider;
 use Solr\Facets;
-use Zend\Stdlib\Parameters;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\Stdlib\Parameters;
+use Laminas\View\Renderer\RendererInterface;
 use Core\Form\View\Helper\Form as FormHelper;
 use Auth\Entity\User;
-use Zend\Form\Fieldset;
+use Laminas\Form\Fieldset;
 
 /**
  * @coversDefaultClass \JobsByMail\View\Helper\SubscriptionForm

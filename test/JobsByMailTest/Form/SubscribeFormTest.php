@@ -9,10 +9,10 @@
 
 namespace JobsByMailTest\Form;
 
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill as FormElementManager;
 use JobsByMail\Form\SubscribeForm;
-use Zend\Form\Element\Select;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Form\Element\Select;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * @coversDefaultClass \JobsByMail\Form\SubscribeForm

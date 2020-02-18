@@ -12,8 +12,8 @@ namespace JobsByMail\Factory\Service;
 use JobsByMail\Service\Mailer;
 use JobsByMail\Service\Hash;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class MailerFactory implements FactoryInterface
 {
@@ -36,7 +36,7 @@ class MailerFactory implements FactoryInterface
 
     /**
      * {@inheritDoc}
-     * @see \Zend\ServiceManager\FactoryInterface::createService()
+     * @see \Laminas\ServiceManager\FactoryInterface::createService()
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {

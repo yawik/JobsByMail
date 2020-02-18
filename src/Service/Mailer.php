@@ -13,9 +13,9 @@ use Core\Mail\MailService;
 use Core\Options\ModuleOptions;
 use Organizations\ImageFileCache\Manager as OrganizationImageCache;
 use LogicException;
-use Zend\Mail\Exception\ExceptionInterface as MailException;
-use Zend\Log\LoggerInterface as Log;
-use Zend\Mail\Message;
+use Laminas\Mail\Exception\ExceptionInterface as MailException;
+use Laminas\Log\LoggerInterface as Log;
+use Laminas\Mail\Message;
 use InvalidArgumentException;
 
 class Mailer
