@@ -17,6 +17,9 @@
             "email": "me@itstoni.com"
         }
     ],
+    "support": {
+        "source": "https://github.com/yawik/JobsByMail"
+    },
     "keywords": [
         "yawik",
         "jobs"
@@ -24,15 +27,15 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
-        "yawik/core": "^0.34.0",
-        "yawik/auth": "0.34.0",
-        "yawik/jobs": "0.34.0",
-        "yawik/settings": "0.34.0",
-        "yawik/applications": "0.34.0",
-        "yawik/cv": "0.34.0",
-        "yawik/geo": "1.1.0",
-        "yawik/organizations": "0.34.0",
-        "yawik/composer-plugin": "1.0.0",
+        "yawik/core": "^0.34",
+        "yawik/auth": "^0.34",
+        "yawik/jobs": "^0.34",
+        "yawik/settings": "^0.34",
+        "yawik/applications": "^0.34",
+        "yawik/cv": "^0.34",
+        "yawik/geo": "^1.1",
+        "yawik/organizations": "^0.34",
+        "yawik/composer-plugin": "^2.0",
         "laminas/laminas-dependency-plugin": "^1.0"
     },
     "require-dev": {
